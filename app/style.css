@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: #35654d;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+#topbar {
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding: 0 20px;
+
+    background: #222;
+    color: white;
+}
+
+#topbar h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+#shuffle {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#table {
+    position: relative;
+
+    width: 100%;
+    height: calc(100% - 60px);
+
+    overflow: hidden;
+}
+.deck {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+#topbar {
+    position: fixed;
+    z-index: 1000;
+}
+
+#table {
+    position: relative;
+    z-index: 1;
+}
+/* =========================
+   المناطق
+   ========================= */
+
+.zone {
+    position: absolute;
+
+    width: 140px;
+    height: 190px;
+
+    left: 80px;
+    top: 100px;
+
+    border: 2px dashed white;
+    border-radius: 10px;
+
+    user-select: none;
+}
+
+/* الاسم الصغير فوق المنطقة */
+.zone-name {
+    position: absolute;
+
+    bottom: 100%;
+    right: 0;
+
+    margin-bottom: 5px;
+
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* الاسم الكبير داخل المنطقة */
+.zone-label {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* المنطقة في وضع التعديل */
+.zone.selected {
+    border-style: solid;
+    cursor: move;
+}
+
+/* أزرار المنطقة */
+.zone-actions {
+    position: absolute;
+
+    top: -38px;
+    right: 0;
+
+    display: flex;
+    gap: 5px;
+}
+
+.zone-actions button {
+    border: 0;
+    border-radius: 5px;
+
+    padding: 5px 8px;
+
+    cursor: pointer;
+}
