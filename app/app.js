@@ -11,6 +11,18 @@ var setupGameButton = document.getElementById('setup-game')
 var moveDeckButton = document.getElementById('move-deck')
 var saveTableButton = document.getElementById('save-table')
 var loadTableButton = document.getElementById('load-table')
+var saveModal = document.getElementById('save-modal')
+var savedTablesList = document.getElementById('saved-tables-list')
+var closeSaveModalButton =
+    document.getElementById('close-save-modal')
+var saveNewModal =
+    document.getElementById('save-new-modal')
+
+var saveOptionsList =
+    document.getElementById('save-options-list')
+
+var closeSaveNewModalButton =
+    document.getElementById('close-save-new-modal')
 
 var isDeckMoving = false
 
@@ -172,26 +184,13 @@ setupGameButton.addEventListener('click', function () {
 
 saveTableButton.addEventListener('click', function () {
 
-    var name = prompt('اكتب اسم الحفظ')
+    showSaveOptions()
 
-    if (!name) {
-        return
-    }
-
-    saveTableState(name)
 })
 
 loadTableButton.addEventListener('click', function () {
-
-    var name = prompt('اكتب اسم الحفظ الذي تريد استعادته')
-
-    if (!name) {
-        return
-    }
-
-    loadTableState(name)
+    showSavedTables()
 })
-
 var maxZones = 6
 
 function createZone() {
@@ -444,7 +443,7 @@ deckHandle.style.display = 'none'
 moveDeckButton.disabled = true
 }
 function saveTableState(name) {
-
+console.log('اسم الحفظ المطلوب:', name)
     var state = {
 
         name: name,
@@ -490,19 +489,204 @@ function saveTableState(name) {
             localStorage.getItem('card-table-saves')
         ) || []
 
+console.log('الحفظات الموجودة:', saves)
+saves.forEach(function (save, index) {
+    console.log(
+        index,
+        '[' + save.name + ']',
+        save.name === name
+    )
+})
 
-    // إضافة الحفظ الجديد
+    
+
+var existingIndex = saves.findIndex(function (save) {
+    return save.name === name
+})
+
+if (existingIndex !== -1) {
+
+    saves[existingIndex] = state
+
+} else {
+
+    if (saves.length >= 6) {
+
+        alert('وصلت إلى الحد الأقصى وهو 6 حفظات')
+
+        return
+    }
+
     saves.push(state)
+}
+
+localStorage.setItem(
+    'card-table-saves',
+    JSON.stringify(saves)
+)
+
+    console.log('تم حفظ الطاولة باسم:', name)
+}
+function showSavedTables() {
+
+    var saves =
+        JSON.parse(
+            localStorage.getItem('card-table-saves')
+        ) || []
+
+    savedTablesList.innerHTML = ''
+
+    if (saves.length === 0) {
+
+        savedTablesList.textContent =
+            'لا توجد حفظات'
+
+    } else {
+
+        saves.forEach(function (save, index) {
+
+            var row =
+                document.createElement('div')
+
+            row.className = 'saved-table-row'
 
 
-    // تخزين جميع الحفظات
+            // زر استعادة الحفظة
+            var button =
+                document.createElement('button')
+
+            button.className = 'saved-table'
+            button.textContent = save.name
+
+            button.addEventListener('click', function () {
+
+                loadTableState(save.name)
+
+                saveModal.classList.remove('open')
+
+            })
+
+
+            // زر حذف الحفظة
+            var deleteButton =
+                document.createElement('button')
+
+            deleteButton.className = 'delete-save'
+            deleteButton.textContent = 'حذف'
+
+            deleteButton.addEventListener('click', function (event) {
+
+    event.stopPropagation()
+
+    var confirmed =
+        confirm('هل أنت متأكد من حذف الحفظة "' + save.name + '"؟')
+
+    if (!confirmed) {
+        return
+    }
+
+    deleteSavedTable(index)
+
+})
+
+
+            row.appendChild(button)
+            row.appendChild(deleteButton)
+
+            savedTablesList.appendChild(row)
+
+        })
+    }
+
+    saveModal.classList.add('open')
+}
+function showSaveOptions() {
+
+    var saves =
+        JSON.parse(
+            localStorage.getItem('card-table-saves')
+        ) || []
+
+    saveOptionsList.innerHTML = ''
+
+
+    // الحفظات الموجودة
+    saves.forEach(function (save) {
+
+        var button =
+            document.createElement('button')
+
+        button.className = 'saved-table'
+        button.textContent =
+            'تحديث: ' + save.name
+
+        button.addEventListener('click', function () {
+
+            saveTableState(save.name)
+
+            saveNewModal.classList.remove('open')
+
+        })
+
+        saveOptionsList.appendChild(button)
+
+    })
+
+
+    // حفظ جديد
+    var newButton =
+        document.createElement('button')
+
+    newButton.className = 'saved-table'
+    newButton.textContent = '+ حفظ جديد'
+
+    newButton.addEventListener('click', function () {
+
+        var name = prompt('اكتب اسم الحفظ الجديد')
+
+        if (!name) {
+            return
+        }
+
+        saveTableState(name)
+
+        saveNewModal.classList.remove('open')
+
+    })
+
+    saveOptionsList.appendChild(newButton)
+
+
+    saveNewModal.classList.add('open')
+}
+closeSaveNewModalButton.addEventListener('click', function () {
+
+    saveNewModal.classList.remove('open')
+
+})
+
+function deleteSavedTable(index) {
+
+    var saves =
+        JSON.parse(
+            localStorage.getItem('card-table-saves')
+        ) || []
+
+    saves.splice(index, 1)
+
     localStorage.setItem(
         'card-table-saves',
         JSON.stringify(saves)
     )
 
-    console.log('تم حفظ الطاولة باسم:', name)
+    showSavedTables()
 }
+closeSaveModalButton.addEventListener('click', function () {
+
+    saveModal.classList.remove('open')
+
+})
+
 
 
 function loadTableState(name) {
