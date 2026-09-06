@@ -8,6 +8,12 @@ var flipButton = document.getElementById('flip')
 var sortButton = document.getElementById('sort')
 var addZoneButton = document.getElementById('add-zone')
 var setupGameButton = document.getElementById('setup-game')
+var moveDeckButton = document.getElementById('move-deck')
+var saveTableButton = document.getElementById('save-table')
+var loadTableButton = document.getElementById('load-table')
+
+var isDeckMoving = false
+
 
 console.log("shuffleButton =", shuffleButton)
 console.log("flipButton =", flipButton)
@@ -70,6 +76,78 @@ deck.cards.forEach(function (card) {
 
 deck.mount(table)
 
+var deckElement = table.querySelector('.deck')
+
+var deckHandle = document.createElement('div')
+
+deckHandle.className = 'deck-handle'
+deckHandle.textContent = '↔'
+
+deckElement.appendChild(deckHandle)
+var isDraggingDeck = false
+var deckOffsetX = 0
+var deckOffsetY = 0
+
+deckHandle.addEventListener('mousedown', function (e) {
+
+    if (!isDeckMoving) return
+
+    isDraggingDeck = true
+
+    var deckRect = deckElement.getBoundingClientRect()
+
+    deckOffsetX = e.clientX - deckRect.left
+    deckOffsetY = e.clientY - deckRect.top
+
+    deckHandle.style.cursor = 'grabbing'
+
+    e.preventDefault()
+    e.stopPropagation()
+})
+
+window.addEventListener('mousemove', function (e) {
+
+    if (!isDraggingDeck) return
+
+    var tableRect = table.getBoundingClientRect()
+
+    deckElement.style.left =
+        (e.clientX - tableRect.left - deckOffsetX) + 'px'
+
+    deckElement.style.top =
+        (e.clientY - tableRect.top - deckOffsetY) + 'px'
+})
+
+window.addEventListener('mouseup', function () {
+
+    if (!isDraggingDeck) return
+
+    isDraggingDeck = false
+
+    deckHandle.style.cursor = 'grab'
+})
+
+moveDeckButton.addEventListener('click', function () {
+
+    isDeckMoving = !isDeckMoving
+
+    if (isDeckMoving) {
+
+        moveDeckButton.textContent = '✓ إنهاء تحريك الرزمة'
+        moveDeckButton.classList.add('active')
+
+        deckHandle.style.display = 'block'
+
+    } else {
+
+        moveDeckButton.textContent = '↔ تحريك الرزمة'
+        moveDeckButton.classList.remove('active')
+
+        deckHandle.style.display = 'none'
+
+    }
+
+})
 // اختبار الأزرار
 
 shuffleButton.addEventListener('click', function () {
@@ -90,6 +168,28 @@ addZoneButton.addEventListener('click', function () {
 
 setupGameButton.addEventListener('click', function () {
     setupGame()
+})
+
+saveTableButton.addEventListener('click', function () {
+
+    var name = prompt('اكتب اسم الحفظ')
+
+    if (!name) {
+        return
+    }
+
+    saveTableState(name)
+})
+
+loadTableButton.addEventListener('click', function () {
+
+    var name = prompt('اكتب اسم الحفظ الذي تريد استعادته')
+
+    if (!name) {
+        return
+    }
+
+    loadTableState(name)
 })
 
 var maxZones = 6
@@ -333,5 +433,182 @@ function arrangeDeck() {
         card.pos = index
         card.shuffle(function () {})
     })
+
+    isDeckMoving = false
+
+moveDeckButton.textContent = '↔ تحريك الرزمة'
+moveDeckButton.classList.remove('active')
+
+deckHandle.style.display = 'none'
+
+moveDeckButton.disabled = true
 }
+function saveTableState(name) {
+
+    var state = {
+
+        name: name,
+
+        deck: {
+            left: deckElement.style.left,
+            top: deckElement.style.top
+        },
+
+        cards: deck.cards.map(function (card) {
+
+            return {
+                i: card.i,
+                rank: card.rank,
+                suit: card.suit,
+                x: card.x,
+                y: card.y,
+                z: card.z,
+                side: card.side
+            }
+
+        }),
+
+        zones: []
+    }
+
+    var zones = table.querySelectorAll('.zone')
+
+    zones.forEach(function (zone) {
+
+        state.zones.push({
+            name: zone.querySelector('.zone-name').textContent,
+            left: zone.style.left,
+            top: zone.style.top
+        })
+
+    })
+
+
+    // الحصول على الحفظات الموجودة
+    var saves =
+        JSON.parse(
+            localStorage.getItem('card-table-saves')
+        ) || []
+
+
+    // إضافة الحفظ الجديد
+    saves.push(state)
+
+
+    // تخزين جميع الحفظات
+    localStorage.setItem(
+        'card-table-saves',
+        JSON.stringify(saves)
+    )
+
+    console.log('تم حفظ الطاولة باسم:', name)
+}
+
+
+function loadTableState(name) {
+
+    var saves =
+        JSON.parse(
+            localStorage.getItem('card-table-saves')
+        ) || []
+
+    var state =
+        saves.find(function (save) {
+            return save.name === name
+        })
+
+    if (!state) {
+        console.log('لم يتم العثور على الحفظة:', name)
+        return
+    }
+
+
+    // استعادة مكان الرزمة
+    if (state.deck) {
+
+        deckElement.style.left =
+            state.deck.left
+
+        deckElement.style.top =
+            state.deck.top
+    }
+
+
+    // استعادة البطاقات
+    if (state.cards) {
+
+        var savedCards = state.cards
+
+        var restoredCards = []
+
+        savedCards.forEach(function (savedCard) {
+
+            var card = deck.cards.find(function (card) {
+                return card.i === savedCard.i
+            })
+
+            if (!card) return
+
+            // استعادة الوجه
+           card.setSide(savedCard.side)
+
+card.x = savedCard.x
+card.y = savedCard.y
+
+card.$el.style.transform =
+    'translate(' +
+    card.x + 'px, ' +
+    card.y + 'px)'
+            
+
+            // استعادة الطبقة
+            card.$el.style.zIndex = savedCard.z
+
+            restoredCards.push(card)
+        })
+
+        // استعادة ترتيب المصفوفة
+        deck.cards = restoredCards
+    }
+
+
+    // حذف المناطق الحالية
+    var currentZones =
+        table.querySelectorAll('.zone')
+
+    currentZones.forEach(function (zone) {
+        zone.remove()
+    })
+
+
+    // استعادة المناطق المحفوظة
+    if (state.zones) {
+
+        state.zones.forEach(function (savedZone) {
+
+            createZone()
+
+            var zones =
+                table.querySelectorAll('.zone')
+
+            var zone =
+                zones[zones.length - 1]
+
+            zone.style.left =
+                savedZone.left
+
+            zone.style.top =
+                savedZone.top
+
+            zone.querySelector('.zone-name').textContent =
+                savedZone.name
+
+            zone.querySelector('.zone-label').textContent =
+                savedZone.name
+        })
+    }
+
+    console.log('تم استعادة حالة الطاولة')
+}
+
 

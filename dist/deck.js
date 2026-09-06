@@ -293,6 +293,7 @@ var Deck = (function () {
     }
 
     function onMousedown(e) {
+      
       var startPos = {};
       var pos = {};
       var starttime = Date.now();
@@ -311,7 +312,7 @@ var Deck = (function () {
         addListener(window, 'touchmove', onMousemove);
         addListener(window, 'touchend', onMouseup);
       }
-
+console.log('DRAG CHECK:', isDraggable)
       if (!isDraggable) {
         // is not draggable, do nothing
         return;
@@ -319,9 +320,17 @@ var Deck = (function () {
 
       // move card
       $el.style[transform] = translate(self.x + 'px', self.y + 'px') + (self.rot ? ' rotate(' + self.rot + 'deg)' : '');
+      console.log('TRANSFORM:', $el.style[transform])
       $el.style.zIndex = maxZ++;
 
       function onMousemove(e) {
+       console.log(
+    'CARD MOUSEMOVE:',
+    'x =', self.x,
+    'y =', self.y,
+    'mouse =', pos.x, pos.y,
+    'start =', startPos.x, startPos.y
+)
         if (!isDraggable) {
           // is not draggable, do nothing
           return;
