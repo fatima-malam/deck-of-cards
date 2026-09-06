@@ -23,6 +23,24 @@ var saveOptionsList =
 
 var closeSaveNewModalButton =
     document.getElementById('close-save-new-modal')
+var gameModal =
+    document.getElementById('game-modal')
+
+var gameOneButton =
+    document.getElementById('game-one')
+
+var closeGameModalButton =
+    document.getElementById('close-game-modal')
+
+var gameInfoModal =
+    document.getElementById('game-info-modal')
+
+var gameOneInfoButton =
+    document.getElementById('game-one-info')
+
+var closeGameInfoButton =
+    document.getElementById('close-game-info')
+
 
 var isDeckMoving = false
 
@@ -179,7 +197,31 @@ addZoneButton.addEventListener('click', function () {
 })
 
 setupGameButton.addEventListener('click', function () {
+    gameModal.classList.add('open')
+})
+gameOneButton.addEventListener('click', function () {
+
     setupGame()
+
+    gameModal.classList.remove('open')
+
+})
+closeGameModalButton.addEventListener('click', function () {
+
+    gameModal.classList.remove('open')
+
+})
+
+gameOneInfoButton.addEventListener('click', function () {
+
+    gameInfoModal.classList.add('open')
+
+})
+
+closeGameInfoButton.addEventListener('click', function () {
+
+    gameInfoModal.classList.remove('open')
+
 })
 
 saveTableButton.addEventListener('click', function () {

@@ -26,37 +26,96 @@
     </header>
 
  <main id="table">
+
+    <!-- نافذة استعادة الطاولة -->
     <div id="save-modal" class="save-modal">
 
-    <div class="save-modal-content">
+        <div class="save-modal-content">
 
-        <div class="save-modal-header">
-            <h2>استعادة الطاولة</h2>
-            <button id="close-save-modal">×</button>
-        </div>
+            <div class="save-modal-header">
+                <h2>استعادة الطاولة</h2>
+                <button id="close-save-modal">×</button>
+            </div>
 
-        <div id="saved-tables-list">
-        </div>
+            <div id="saved-tables-list">
+            </div>
 
-    </div>
-
-</div>
-
-<div id="save-new-modal" class="save-modal">
-
-    <div class="save-modal-content">
-
-        <div class="save-modal-header">
-            <h2>حفظ الطاولة</h2>
-            <button id="close-save-new-modal">×</button>
-        </div>
-
-        <div id="save-options-list">
         </div>
 
     </div>
 
-</div>
+
+    <!-- نافذة حفظ الطاولة -->
+    <div id="save-new-modal" class="save-modal">
+
+        <div class="save-modal-content">
+
+            <div class="save-modal-header">
+                <h2>حفظ الطاولة</h2>
+                <button id="close-save-new-modal">×</button>
+            </div>
+
+            <div id="save-options-list">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- نافذة اختيار اللعبة -->
+    <div id="game-modal" class="save-modal">
+
+        <div class="save-modal-content">
+
+            <div class="save-modal-header">
+                <h2>اختيار اللعبة</h2>
+                <button id="close-game-modal">×</button>
+            </div>
+
+            <div id="game-list">
+
+                <div class="game-option">
+
+                    <button class="saved-table" id="game-one">
+                       مكانيك 01
+                    </button>
+
+                    <button class="game-info" id="game-one-info">
+                        ⓘ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- نافذة وصف ميكانيك اللعبة -->
+    <div id="game-info-modal" class="save-modal">
+
+        <div class="save-modal-content">
+
+            <div class="save-modal-header">
+                <h2>ميكانيك 01</h2>
+                <button id="close-game-info">×</button>
+            </div>
+
+            <h3>اسم الميكانيك</h3>
+
+             <p>
+            إزالة الجوكر من المجموعة، ثم توزيع عشر بطاقات جانبًا.
+            تقسيم بقية البطاقات إلى مجموعتين، ووضع جوكر في كل مجموعة،
+            ثم إعادة تجميع الرزمة بحيث تكون البطاقات العشر بين المجموعتين.
+</p>
+    
+        </div>
+
+    </div>
+
 </main>
 
     <script src="../dist/deck.js"></script>
