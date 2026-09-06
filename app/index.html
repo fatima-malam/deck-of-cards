@@ -18,37 +18,48 @@
       <button id="shuffle">خلط</button>
 <button id="flip">قلب المجموعة</button>
 <button id="sort">ترتيب</button>
-<div class="card-size-menu">
 
-    <button id="card-size-button">
-        🃏 حجم البطاقات
-    </button>
+<button id="move-deck">↔ تحريك الرزمة</button>
+<button id="add-zone">＋ إضافة منطقة</button>
+<button id="setup-game">🎲 تجهيز اللعبة</button>
+<button id="save-load-table">💾 حفظ واستعادة</button>
+<button id="customize-table">🎨 تخصيص</button>
+    </header>
 
-    <div id="card-size-options" class="card-size-options">
+ <main id="table">
 
-        <button data-size="small">
-            صغير
-        </button>
+<div id="customize-modal" class="save-modal">
 
-        <button data-size="medium">
-            متوسط
-        </button>
+    <div class="save-modal-content">
 
-        <button data-size="large">
-            كبير
-        </button>
+        <div class="save-modal-header">
+            <h2>تخصيص الطاولة</h2>
+
+            <button id="close-customize-modal">×</button>
+        </div>
+
+        <h3>البطاقات</h3>
+
+        <p>حجم البطاقات</p>
+
+        <div id="card-size-options">
+            <button data-size="small">صغير</button>
+            <button data-size="medium">متوسط</button>
+            <button data-size="large">كبير</button>
+        </div>
+<h3>ظهر البطاقات</h3>
+
+<div id="card-back-options">
+    <button data-back="default">الافتراضي</button>
+    <button data-back="custom">الظهر المخصص</button>
+</div>
+        <h3>الطاولة</h3>
+
+        <p>هنا سنضع خيارات الطاولة.</p>
 
     </div>
 
 </div>
-<button id="move-deck">↔ تحريك الرزمة</button>
-<button id="add-zone">＋ إضافة منطقة</button>
-<button id="setup-game">🎲 تجهيز اللعبة</button>
-<button id="save-table">💾 حفظ الطاولة</button>
-<button id="load-table">📂 استعادة الطاولة</button>
-    </header>
-
- <main id="table">
 
     <!-- نافذة استعادة الطاولة -->
     <div id="save-modal" class="save-modal">

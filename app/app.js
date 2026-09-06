@@ -9,8 +9,12 @@ var sortButton = document.getElementById('sort')
 var addZoneButton = document.getElementById('add-zone')
 var setupGameButton = document.getElementById('setup-game')
 var moveDeckButton = document.getElementById('move-deck')
-var saveTableButton = document.getElementById('save-table')
-var loadTableButton = document.getElementById('load-table')
+var customizeTableButton = document.getElementById('customize-table')
+var customizeModal = document.getElementById('customize-modal')
+
+var closeCustomizeModalButton = document.getElementById('close-customize-modal')
+
+var saveLoadTableButton = document.getElementById('save-load-table')
 var saveModal = document.getElementById('save-modal')
 var savedTablesList = document.getElementById('saved-tables-list')
 var closeSaveModalButton =
@@ -41,41 +45,7 @@ var gameOneInfoButton =
 var closeGameInfoButton =
     document.getElementById('close-game-info')
 
-var cardSizeButton =
-    document.getElementById('card-size-button')
 
-var cardSizeOptions =
-    document.getElementById('card-size-options')
-
-cardSizeButton.addEventListener('click', function () {
-
-    cardSizeOptions.classList.toggle('open')
-
-})    
-cardSizeOptions
-    .querySelectorAll('button')
-    .forEach(function (button) {
-
-        button.addEventListener('click', function () {
-
-            var size =
-                button.dataset.size
-
-            deckElement.classList.remove(
-                'card-size-small',
-                'card-size-medium',
-                'card-size-large'
-            )
-
-            deckElement.classList.add(
-                'card-size-' + size
-            )
-
-            cardSizeOptions.classList.remove('open')
-
-        })
-
-    })
 
 var isDeckMoving = false
 
@@ -142,6 +112,62 @@ deck.cards.forEach(function (card) {
 deck.mount(table)
 
 var deckElement = table.querySelector('.deck')
+
+var cardSizeOptions =
+    document.getElementById('card-size-options')
+
+cardSizeOptions
+    .querySelectorAll('button')
+    .forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            var size =
+                button.dataset.size
+
+            deckElement.classList.remove(
+                'card-size-small',
+                'card-size-medium',
+                'card-size-large'
+            )
+
+            deckElement.classList.add(
+                'card-size-' + size
+            )
+
+        })
+
+    })
+
+var cardBackOptions =
+    document.getElementById('card-back-options')
+
+cardBackOptions
+    .querySelectorAll('button')
+    .forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            var back =
+                button.dataset.back
+
+            if (back === 'custom') {
+
+                deckElement.classList.add(
+                    'custom-card-back'
+                )
+
+            } else {
+
+                deckElement.classList.remove(
+                    'custom-card-back'
+                )
+
+            }
+
+        })
+
+    })
 
 var deckHandle = document.createElement('div')
 
@@ -259,16 +285,20 @@ closeGameInfoButton.addEventListener('click', function () {
 
 })
 
-saveTableButton.addEventListener('click', function () {
 
-    showSaveOptions()
-
-})
-
-loadTableButton.addEventListener('click', function () {
-    showSavedTables()
-})
 var maxZones = 6
+
+customizeTableButton.addEventListener('click', function () {
+    console.log('تم الضغط على تخصيص')
+})
+
+customizeTableButton.addEventListener('click', function () {
+    customizeModal.classList.add('open')
+})
+
+closeCustomizeModalButton.addEventListener('click', function () {
+    customizeModal.classList.remove('open')
+})
 
 function createZone() {
 
