@@ -7,6 +7,7 @@ var shuffleButton = document.getElementById('shuffle')
 var flipButton = document.getElementById('flip')
 var sortButton = document.getElementById('sort')
 var addZoneButton = document.getElementById('add-zone')
+var setupGameButton = document.getElementById('setup-game')
 
 console.log("shuffleButton =", shuffleButton)
 console.log("flipButton =", flipButton)
@@ -14,7 +15,49 @@ console.log("sortButton =", sortButton)
 
 // إنشاء الرزمة
 
-var deck = Deck()
+var deck = Deck(true)
+console.log("عدد البطاقات:", deck.cards.length)
+
+deck.cards.forEach(function (card) {
+    console.log(
+        "i:", card.i,
+        "rank:", card.rank,
+        "suit:", card.suit
+    )
+})
+
+function isJoker(card) {
+    return card.suit === 4
+}
+deck.cards.forEach(function (card) {
+    if (isJoker(card)) {
+        console.log("وجدنا جوكر:", card.i)
+    }
+})
+
+var jokers = deck.cards.filter(function (card) {
+    return isJoker(card)
+})
+
+console.log("عدد الجوكرات:", jokers.length)
+
+var removedJoker = jokers[2]
+
+var index = deck.cards.indexOf(removedJoker)
+removedJoker.unmount()
+deck.cards.splice(index, 1)
+
+console.log("عدد البطاقات بعد إزالة الجوكر:", deck.cards.length)
+
+
+console.log("عدد البطاقات في الرزمة:", deck.cards.length)
+
+var jokers = deck.cards.filter(function (card) {
+    return card.suit === 4
+})
+
+var joker1 = jokers[0]
+var joker2 = jokers[1]
 
 // تفعيل السحب والقلب
 
@@ -43,6 +86,10 @@ sortButton.addEventListener('click', function () {
 
 addZoneButton.addEventListener('click', function () {
     createZone()
+})
+
+setupGameButton.addEventListener('click', function () {
+    setupGame()
 })
 
 var maxZones = 6
@@ -211,3 +258,80 @@ function addZoneActions(zone) {
         }
     }
 }
+
+function setupGame() {
+
+    console.log("تم الضغط على زر تجهيز اللعبة")
+if (!deck.cards.includes(joker1)) {
+    console.log("اللعبة مجهزة مسبقًا")
+    return
+}
+  
+    // إزالة الجوكرين من الرزمة مؤقتًا
+    joker1.unmount()
+    joker2.unmount()
+
+    deck.cards.splice(deck.cards.indexOf(joker1), 1)
+    deck.cards.splice(deck.cards.indexOf(joker2), 1)
+
+    console.log("تم استخراج الجوكرين")
+    console.log("عدد البطاقات المتبقية:", deck.cards.length)
+
+// خلط الـ52 بطاقة
+deck.shuffle()
+
+// حجز 10 بطاقات
+var reservedCards = deck.cards.slice(0, 10)
+
+// البطاقات المتبقية
+var remainingCards = deck.cards.slice(10)
+
+console.log("عدد البطاقات المحجوزة:", reservedCards.length)
+console.log("عدد البطاقات المتبقية:", remainingCards.length)
+// تقسيم البطاقات المتبقية إلى مجموعتين
+var middle = Math.floor(remainingCards.length / 2)
+
+var pile1 = remainingCards.slice(0, middle)
+var pile2 = remainingCards.slice(middle)
+
+console.log("المجموعة الأولى:", pile1.length)
+console.log("المجموعة الثانية:", pile2.length)
+// خلط كل مجموعة
+pile1.sort(function () {
+    return Math.random() - 0.5
+})
+
+pile2.sort(function () {
+    return Math.random() - 0.5
+})
+
+// اختيار مكان عشوائي للجوكر
+var joker1Position =
+    Math.floor(Math.random() * (pile1.length + 1))
+
+var joker2Position =
+    Math.floor(Math.random() * (pile2.length + 1))
+
+// إدخال الجوكرين
+pile1.splice(joker1Position, 0, joker1)
+pile2.splice(joker2Position, 0, joker2)
+
+console.log("مكان الجوكر الأول:", joker1Position)
+console.log("مكان الجوكر الثاني:", joker2Position)
+
+console.log("حجم المجموعة الأولى:", pile1.length)
+console.log("حجم المجموعة الثانية:", pile2.length)
+
+// إعادة تجميع الرزمة
+deck.cards = pile1.concat(reservedCards, pile2)
+arrangeDeck()
+
+}
+
+function arrangeDeck() {
+    deck.cards.forEach(function (card, index) {
+        card.pos = index
+        card.shuffle(function () {})
+    })
+}
+
