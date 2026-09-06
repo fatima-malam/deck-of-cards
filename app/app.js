@@ -41,6 +41,41 @@ var gameOneInfoButton =
 var closeGameInfoButton =
     document.getElementById('close-game-info')
 
+var cardSizeButton =
+    document.getElementById('card-size-button')
+
+var cardSizeOptions =
+    document.getElementById('card-size-options')
+
+cardSizeButton.addEventListener('click', function () {
+
+    cardSizeOptions.classList.toggle('open')
+
+})    
+cardSizeOptions
+    .querySelectorAll('button')
+    .forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            var size =
+                button.dataset.size
+
+            deckElement.classList.remove(
+                'card-size-small',
+                'card-size-medium',
+                'card-size-large'
+            )
+
+            deckElement.classList.add(
+                'card-size-' + size
+            )
+
+            cardSizeOptions.classList.remove('open')
+
+        })
+
+    })
 
 var isDeckMoving = false
 

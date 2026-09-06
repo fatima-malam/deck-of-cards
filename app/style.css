@@ -253,3 +253,74 @@ body {
 .delete-save:hover {
     background: #ccc;
 }
+
+.card-size-menu {
+    position: relative;
+    display: inline-block;
+}
+
+#card-size-button {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card-size-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+
+    display: none;
+
+    min-width: 120px;
+
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    z-index: 3000;
+}
+
+.card-size-options.open {
+    display: block;
+}
+
+.card-size-options button {
+    display: block;
+
+    width: 100%;
+
+    padding: 8px 12px;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: white;
+
+    text-align: right;
+    cursor: pointer;
+}
+
+.card-size-options button:hover {
+    background: #e8eeee;
+}
+
+/* أحجام البطاقات */
+
+.deck.card-size-small .card {
+    width: 3.875rem;
+    height: 5.5rem;
+}
+
+.deck.card-size-medium .card {
+     width: 5rem;
+    height: 7.1rem;
+}
+
+.deck.card-size-large .card {
+    width: 6.3rem;
+    height: 9.0rem;
+}
