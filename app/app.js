@@ -811,10 +811,22 @@ console.log('اسم الحفظ المطلوب:', name)
 
         name: name,
 
-        deck: {
-            left: deckElement.style.left,
-            top: deckElement.style.top
-        },
+      deck: {
+    left: deckElement.style.left,
+    top: deckElement.style.top,
+    cardSize: deckElement.classList.contains('card-size-large')
+        ? 'large'
+        : deckElement.classList.contains('card-size-medium')
+            ? 'medium'
+            : 'small',
+    cardBack: deckElement.classList.contains('custom-card-back')
+        ? deckElement.style.getPropertyValue('--custom-card-back')
+        : 'default'
+},
+background: {
+    image: document.body.style.backgroundImage,
+    color: document.body.style.backgroundColor
+},
 
         cards: deck.cards.map(function (card) {
 
@@ -1103,8 +1115,48 @@ function loadTableState(name) {
         deckElement.style.top =
             state.deck.top
     }
+if (state.deck) {
 
+    deckElement.classList.remove(
+        'card-size-small',
+        'card-size-medium',
+        'card-size-large'
+    )
 
+    deckElement.classList.add(
+        'card-size-' + state.deck.cardSize
+    )
+
+    if (state.deck.cardBack === 'default') {
+
+        deckElement.classList.remove(
+            'custom-card-back'
+        )
+
+        deckElement.style.removeProperty(
+            '--custom-card-back'
+        )
+
+    } else {
+
+        deckElement.style.setProperty(
+            '--custom-card-back',
+            state.deck.cardBack
+        )
+
+        deckElement.classList.add(
+            'custom-card-back'
+        )
+    }
+}
+if (state.background) {
+
+    document.body.style.backgroundImage =
+        state.background.image
+
+    document.body.style.backgroundColor =
+        state.background.color
+}
     // استعادة البطاقات
     if (state.cards) {
 
