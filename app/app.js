@@ -1,5 +1,6 @@
-console.log("app.js اشتغل")
-console.log("Deck =", Deck)
+// =========================
+// عناصر الواجهة
+// =========================
 
 var table = document.getElementById('table')
 
@@ -9,12 +10,22 @@ var sortButton = document.getElementById('sort')
 var addZoneButton = document.getElementById('add-zone')
 var setupGameButton = document.getElementById('setup-game')
 var moveDeckButton = document.getElementById('move-deck')
-var customizeTableButton = document.getElementById('customize-table')
-var customizeModal = document.getElementById('customize-modal')
 
-var closeCustomizeModalButton = document.getElementById('close-customize-modal')
+var customizeTableButton =
+    document.getElementById('customize-table')
 
-var saveLoadTableButton = document.getElementById('save-load-table')
+var customizeModal =
+    document.getElementById('customize-modal')
+
+var closeCustomizeModalButton =
+    document.getElementById('close-customize-modal')
+
+
+// الحفظ والاستعادة
+
+var saveLoadTableButton =
+    document.getElementById('save-load-table')
+
 var saveChoiceModal =
     document.getElementById('save-choice-modal')
 
@@ -27,10 +38,15 @@ var saveTableChoice =
 var restoreTableChoice =
     document.getElementById('restore-table-choice')
 
-var saveModal = document.getElementById('save-modal')
-var savedTablesList = document.getElementById('saved-tables-list')
+var saveModal =
+    document.getElementById('save-modal')
+
+var savedTablesList =
+    document.getElementById('saved-tables-list')
+
 var closeSaveModalButton =
     document.getElementById('close-save-modal')
+
 var saveNewModal =
     document.getElementById('save-new-modal')
 
@@ -39,6 +55,10 @@ var saveOptionsList =
 
 var closeSaveNewModalButton =
     document.getElementById('close-save-new-modal')
+
+
+// الألعاب
+
 var gameModal =
     document.getElementById('game-modal')
 
@@ -58,52 +78,29 @@ var closeGameInfoButton =
     document.getElementById('close-game-info')
 
 
+// حالة التطبيق
 
 var isDeckMoving = false
 
-
-console.log("shuffleButton =", shuffleButton)
-console.log("flipButton =", flipButton)
-console.log("sortButton =", sortButton)
-
+// =========================
 // إنشاء الرزمة
+// =========================
 
 var deck = Deck(true)
-console.log("عدد البطاقات:", deck.cards.length)
-
-deck.cards.forEach(function (card) {
-    console.log(
-        "i:", card.i,
-        "rank:", card.rank,
-        "suit:", card.suit
-    )
-})
 
 function isJoker(card) {
     return card.suit === 4
 }
-deck.cards.forEach(function (card) {
-    if (isJoker(card)) {
-        console.log("وجدنا جوكر:", card.i)
-    }
-})
 
-var jokers = deck.cards.filter(function (card) {
+var allJokers = deck.cards.filter(function (card) {
     return isJoker(card)
 })
 
-console.log("عدد الجوكرات:", jokers.length)
-
-var removedJoker = jokers[2]
+var removedJoker = allJokers[2]
 
 var index = deck.cards.indexOf(removedJoker)
 removedJoker.unmount()
 deck.cards.splice(index, 1)
-
-console.log("عدد البطاقات بعد إزالة الجوكر:", deck.cards.length)
-
-
-console.log("عدد البطاقات في الرزمة:", deck.cards.length)
 
 var jokers = deck.cards.filter(function (card) {
     return card.suit === 4
@@ -112,18 +109,27 @@ var jokers = deck.cards.filter(function (card) {
 var joker1 = jokers[0]
 var joker2 = jokers[1]
 
-// تفعيل السحب والقلب
+// =========================
+// تفعيل البطاقات
+// =========================
 
 deck.cards.forEach(function (card) {
     card.enableDragging()
     card.enableFlipping()
 })
 
+
+// =========================
 // وضع الرزمة على الطاولة
+// =========================
 
 deck.mount(table)
 
 var deckElement = table.querySelector('.deck')
+
+// =========================
+// حجم البطاقات
+// =========================
 
 var cardSizeOptions =
     document.getElementById('card-size-options')
@@ -150,6 +156,9 @@ cardSizeOptions
         })
 
     })
+// =========================
+// ظهر البطاقات
+// =========================
 
 var cardBackOptions =
     document.getElementById('card-back-options')
@@ -264,6 +273,10 @@ cardBackFile.addEventListener(
     }
 )
 
+// =========================
+// خلفية الطاولة
+// =========================
+
 var tableBackgroundOptions =
     document.getElementById('table-background-options')
 
@@ -355,42 +368,10 @@ tableBackgroundFile.addEventListener(
     }
 )
 
-    var cardBackFile =
-    document.getElementById('card-back-file')
-
-cardBackFile.addEventListener('change', function () {
-
-    var file = cardBackFile.files[0]
-
-    if (!file) {
-        return
-    }
-
-    if (file.size > 500 * 1024) {
-        alert('حجم الصورة يجب ألا يتجاوز 500 KB')
-        cardBackFile.value = ''
-        return
-    }
-
-    var reader = new FileReader()
-
-    reader.onload = function (event) {
-
-        deckElement.style.setProperty(
-            '--custom-card-back',
-            'url("' + event.target.result + '")'
-        )
-
-        deckElement.classList.add(
-            'custom-card-back'
-        )
-
-    }
-
-    reader.readAsDataURL(file)
-
-})
-
+    
+// =========================
+// تحريك الرزمة
+// =========================
 var deckHandle = document.createElement('div')
 
 deckHandle.className = 'deck-handle'
@@ -461,8 +442,9 @@ moveDeckButton.addEventListener('click', function () {
     }
 
 })
-// اختبار الأزرار
-
+// =========================
+// أزرار التحكم
+// =========================
 shuffleButton.addEventListener('click', function () {
     deck.shuffle()
 })
@@ -507,12 +489,11 @@ closeGameInfoButton.addEventListener('click', function () {
 
 })
 
-
+// =========================
+// المناطق
+// =========================
 var maxZones = 6
 
-customizeTableButton.addEventListener('click', function () {
-    console.log('تم الضغط على تخصيص')
-})
 
 customizeTableButton.addEventListener('click', function () {
     customizeModal.classList.add('open')
@@ -686,12 +667,13 @@ function addZoneActions(zone) {
         }
     }
 }
-
+// =========================
+// تجهيز اللعبة
+// =========================
 function setupGame() {
 
-    console.log("تم الضغط على زر تجهيز اللعبة")
+    
 if (!deck.cards.includes(joker1)) {
-    console.log("اللعبة مجهزة مسبقًا")
     return
 }
   
@@ -702,8 +684,7 @@ if (!deck.cards.includes(joker1)) {
     deck.cards.splice(deck.cards.indexOf(joker1), 1)
     deck.cards.splice(deck.cards.indexOf(joker2), 1)
 
-    console.log("تم استخراج الجوكرين")
-    console.log("عدد البطاقات المتبقية:", deck.cards.length)
+   
 
 // خلط الـ52 بطاقة
 deck.shuffle()
@@ -714,16 +695,12 @@ var reservedCards = deck.cards.slice(0, 10)
 // البطاقات المتبقية
 var remainingCards = deck.cards.slice(10)
 
-console.log("عدد البطاقات المحجوزة:", reservedCards.length)
-console.log("عدد البطاقات المتبقية:", remainingCards.length)
 // تقسيم البطاقات المتبقية إلى مجموعتين
 var middle = Math.floor(remainingCards.length / 2)
 
 var pile1 = remainingCards.slice(0, middle)
 var pile2 = remainingCards.slice(middle)
 
-console.log("المجموعة الأولى:", pile1.length)
-console.log("المجموعة الثانية:", pile2.length)
 // خلط كل مجموعة
 pile1.sort(function () {
     return Math.random() - 0.5
@@ -743,12 +720,6 @@ var joker2Position =
 // إدخال الجوكرين
 pile1.splice(joker1Position, 0, joker1)
 pile2.splice(joker2Position, 0, joker2)
-
-console.log("مكان الجوكر الأول:", joker1Position)
-console.log("مكان الجوكر الثاني:", joker2Position)
-
-console.log("حجم المجموعة الأولى:", pile1.length)
-console.log("حجم المجموعة الثانية:", pile2.length)
 
 // إعادة تجميع الرزمة
 deck.cards = pile1.concat(reservedCards, pile2)
@@ -771,7 +742,9 @@ deckHandle.style.display = 'none'
 
 moveDeckButton.disabled = true
 }
-
+// =========================
+// الحفظ والاستعادة
+// =========================
 saveLoadTableButton.addEventListener('click', function () {
 
     saveModal.classList.remove('open')
@@ -806,7 +779,6 @@ restoreTableChoice.addEventListener('click', function () {
 })
 
 function saveTableState(name) {
-console.log('اسم الحفظ المطلوب:', name)
     var state = {
 
         name: name,
@@ -863,16 +835,6 @@ background: {
         JSON.parse(
             localStorage.getItem('card-table-saves')
         ) || []
-
-console.log('الحفظات الموجودة:', saves)
-saves.forEach(function (save, index) {
-    console.log(
-        index,
-        '[' + save.name + ']',
-        save.name === name
-    )
-})
-
     
 
 var existingIndex = saves.findIndex(function (save) {
@@ -900,7 +862,6 @@ localStorage.setItem(
     JSON.stringify(saves)
 )
 
-    console.log('تم حفظ الطاولة باسم:', name)
 }
 function showSavedTables() {
 
@@ -972,27 +933,7 @@ function showSavedTables() {
 
         })
     }
-var newSaveButton =
-    document.createElement('button')
 
-newSaveButton.className = 'saved-table'
-newSaveButton.textContent = '+ حفظ جديد'
-
-newSaveButton.addEventListener('click', function () {
-
-    var name = prompt('اكتب اسم الحفظ الجديد')
-
-    if (!name) {
-        return
-    }
-
-    saveTableState(name)
-
-    showSavedTables()
-
-})
-
-savedTablesList.appendChild(newSaveButton)
     saveModal.classList.add('open')
 }
 function showSaveOptions() {
@@ -1082,11 +1023,7 @@ closeSaveModalButton.addEventListener('click', function () {
 
 })
 
-saveLoadTableButton.addEventListener('click', function () {
 
-    showSavedTables()
-
-})
 
 function loadTableState(name) {
 
@@ -1101,7 +1038,6 @@ function loadTableState(name) {
         })
 
     if (!state) {
-        console.log('لم يتم العثور على الحفظة:', name)
         return
     }
 
@@ -1114,8 +1050,8 @@ function loadTableState(name) {
 
         deckElement.style.top =
             state.deck.top
-    }
-if (state.deck) {
+    
+
 
     deckElement.classList.remove(
         'card-size-small',
@@ -1231,7 +1167,5 @@ card.$el.style.transform =
         })
     }
 
-    console.log('تم استعادة حالة الطاولة')
+
 }
-
-
