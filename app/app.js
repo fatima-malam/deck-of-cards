@@ -20,6 +20,23 @@ var customizeModal =
 var closeCustomizeModalButton =
     document.getElementById('close-customize-modal')
 
+    var infoButton =
+    document.getElementById('info-button')
+
+var infoModal =
+    document.getElementById('info-modal')
+
+var closeInfoModalButton =
+    document.getElementById('close-info-modal')
+
+    infoButton.addEventListener('click', function () {
+    infoModal.classList.add('open')
+})
+
+closeInfoModalButton.addEventListener('click', function () {
+    infoModal.classList.remove('open')
+})
+
 
 // الحفظ والاستعادة
 
@@ -1127,7 +1144,11 @@ card.$el.style.transform =
         })
 
         // استعادة ترتيب المصفوفة
-        deck.cards = restoredCards
+        deck.cards.splice(
+    0,
+    deck.cards.length,
+    ...restoredCards
+)
     }
 
 
