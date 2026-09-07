@@ -15,6 +15,18 @@ var customizeModal = document.getElementById('customize-modal')
 var closeCustomizeModalButton = document.getElementById('close-customize-modal')
 
 var saveLoadTableButton = document.getElementById('save-load-table')
+var saveChoiceModal =
+    document.getElementById('save-choice-modal')
+
+var closeSaveChoiceModalButton =
+    document.getElementById('close-save-choice-modal')
+
+var saveTableChoice =
+    document.getElementById('save-table-choice')
+
+var restoreTableChoice =
+    document.getElementById('restore-table-choice')
+
 var saveModal = document.getElementById('save-modal')
 var savedTablesList = document.getElementById('saved-tables-list')
 var closeSaveModalButton =
@@ -143,23 +155,42 @@ var cardBackOptions =
     document.getElementById('card-back-options')
 
 cardBackOptions
-    .querySelectorAll('button')
-    .forEach(function (button) {
+    .querySelectorAll('button[data-back]')
+        .forEach(function (button) {
 
         button.addEventListener('click', function () {
+
+            cardBackOptions
+                .querySelectorAll('button')
+                .forEach(function (item) {
+                    item.classList.remove('selected')
+                })
+
+            button.classList.add('selected')
 
             var back =
                 button.dataset.back
 
-            if (back === 'custom') {
+            if (back === 'default') {
 
-                deckElement.classList.add(
+                deckElement.classList.remove(
                     'custom-card-back'
+                )
+
+                deckElement.style.removeProperty(
+                    '--custom-card-back'
                 )
 
             } else {
 
-                deckElement.classList.remove(
+                deckElement.style.setProperty(
+                    '--custom-card-back',
+                    'url("images/card-back-' +
+                    back +
+                    '.jpg")'
+                )
+
+                deckElement.classList.add(
                     'custom-card-back'
                 )
 
@@ -168,6 +199,197 @@ cardBackOptions
         })
 
     })
+
+var cardBackUploadButton =
+    document.getElementById('card-back-upload-button')
+
+var cardBackFile =
+    document.getElementById('card-back-file')
+
+cardBackUploadButton.addEventListener(
+    'click',
+    function () {
+
+        cardBackFile.click()
+
+    }
+)
+
+cardBackFile.addEventListener(
+    'change',
+    function () {
+
+        var file = cardBackFile.files[0]
+
+        if (!file) {
+            return
+        }
+
+        if (file.size > 500 * 1024) {
+
+            alert('حجم الصورة يجب ألا يتجاوز 500 KB')
+
+            cardBackFile.value = ''
+
+            return
+        }
+
+        var reader = new FileReader()
+
+        reader.onload = function (event) {
+
+            deckElement.style.setProperty(
+                '--custom-card-back',
+                'url("' + event.target.result + '")'
+            )
+
+            deckElement.classList.add(
+                'custom-card-back'
+            )
+
+            cardBackOptions
+                .querySelectorAll('button')
+                .forEach(function (item) {
+                    item.classList.remove('selected')
+                })
+
+            cardBackUploadButton.classList.add(
+                'selected'
+            )
+
+        }
+
+        reader.readAsDataURL(file)
+
+    }
+)
+
+var tableBackgroundOptions =
+    document.getElementById('table-background-options')
+
+tableBackgroundOptions
+    .querySelectorAll('button')
+    .forEach(function (button) {
+
+        button.addEventListener('click', function () {
+            tableBackgroundOptions
+        .querySelectorAll('button')
+        .forEach(function (item) {
+            item.classList.remove('selected')
+        })
+  button.classList.add('selected')
+            var background =
+                button.dataset.background
+
+            if (background === 'default') {
+
+                document.body.style.backgroundImage = 'none'
+document.body.style.backgroundColor = '#35654d'
+
+            } else {
+
+               document.body.style.backgroundImage =
+    'url("images/table-bg-' +
+    background +
+    '.jpg")'
+
+document.body.style.backgroundSize = 'cover'
+document.body.style.backgroundPosition = 'center'
+document.body.style.backgroundRepeat = 'no-repeat'
+
+            }
+
+        })
+
+    })
+
+var tableBackgroundUploadButton =
+    document.getElementById('table-background-upload-button')
+
+var tableBackgroundFile =
+    document.getElementById('table-background-file')
+
+tableBackgroundUploadButton.addEventListener(
+    'click',
+    function () {
+
+        tableBackgroundFile.click()
+
+    }
+)
+
+tableBackgroundFile.addEventListener(
+    'change',
+    function () {
+
+        var file = tableBackgroundFile.files[0]
+
+        if (!file) {
+            return
+        }
+
+        if (file.size > 500 * 1024) {
+
+            alert('حجم الصورة يجب ألا يتجاوز 500 KB')
+
+            tableBackgroundFile.value = ''
+
+            return
+        }
+
+        var reader = new FileReader()
+
+        reader.onload = function (event) {
+
+            document.body.style.backgroundImage =
+                'url("' + event.target.result + '")'
+
+            document.body.style.backgroundSize = 'cover'
+            document.body.style.backgroundPosition = 'center'
+            document.body.style.backgroundRepeat = 'no-repeat'
+
+        }
+
+        reader.readAsDataURL(file)
+
+    }
+)
+
+    var cardBackFile =
+    document.getElementById('card-back-file')
+
+cardBackFile.addEventListener('change', function () {
+
+    var file = cardBackFile.files[0]
+
+    if (!file) {
+        return
+    }
+
+    if (file.size > 500 * 1024) {
+        alert('حجم الصورة يجب ألا يتجاوز 500 KB')
+        cardBackFile.value = ''
+        return
+    }
+
+    var reader = new FileReader()
+
+    reader.onload = function (event) {
+
+        deckElement.style.setProperty(
+            '--custom-card-back',
+            'url("' + event.target.result + '")'
+        )
+
+        deckElement.classList.add(
+            'custom-card-back'
+        )
+
+    }
+
+    reader.readAsDataURL(file)
+
+})
 
 var deckHandle = document.createElement('div')
 
@@ -549,6 +771,40 @@ deckHandle.style.display = 'none'
 
 moveDeckButton.disabled = true
 }
+
+saveLoadTableButton.addEventListener('click', function () {
+
+    saveModal.classList.remove('open')
+    saveNewModal.classList.remove('open')
+
+    saveChoiceModal.classList.add('open')
+
+})
+
+closeSaveChoiceModalButton.addEventListener('click', function () {
+
+    saveChoiceModal.classList.remove('open')
+
+})
+
+saveTableChoice.addEventListener('click', function () {
+
+    saveChoiceModal.classList.remove('open')
+    saveModal.classList.remove('open')
+
+    showSaveOptions()
+
+})
+
+restoreTableChoice.addEventListener('click', function () {
+
+    saveChoiceModal.classList.remove('open')
+    saveNewModal.classList.remove('open')
+
+    showSavedTables()
+
+})
+
 function saveTableState(name) {
 console.log('اسم الحفظ المطلوب:', name)
     var state = {
@@ -704,7 +960,27 @@ function showSavedTables() {
 
         })
     }
+var newSaveButton =
+    document.createElement('button')
 
+newSaveButton.className = 'saved-table'
+newSaveButton.textContent = '+ حفظ جديد'
+
+newSaveButton.addEventListener('click', function () {
+
+    var name = prompt('اكتب اسم الحفظ الجديد')
+
+    if (!name) {
+        return
+    }
+
+    saveTableState(name)
+
+    showSavedTables()
+
+})
+
+savedTablesList.appendChild(newSaveButton)
     saveModal.classList.add('open')
 }
 function showSaveOptions() {
@@ -794,7 +1070,11 @@ closeSaveModalButton.addEventListener('click', function () {
 
 })
 
+saveLoadTableButton.addEventListener('click', function () {
 
+    showSavedTables()
+
+})
 
 function loadTableState(name) {
 

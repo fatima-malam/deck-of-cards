@@ -38,9 +38,7 @@
             <button id="close-customize-modal">×</button>
         </div>
 
-        <h3>البطاقات</h3>
-
-        <p>حجم البطاقات</p>
+        <h3>حجم البطاقات</h3>
 
         <div id="card-size-options">
             <button data-size="small">صغير</button>
@@ -50,13 +48,79 @@
 <h3>ظهر البطاقات</h3>
 
 <div id="card-back-options">
-    <button data-back="default">الافتراضي</button>
-    <button data-back="custom">الظهر المخصص</button>
+
+    <button
+        class="card-back-default"
+        data-back="default"
+        title="الافتراضي"
+    >
+    </button>
+
+    <button data-back="1">
+        <img src="images/card-back-1.jpg" alt="ظهر 1">
+    </button>
+
+    <button data-back="2">
+        <img src="images/card-back-2.jpg" alt="ظهر 2">
+    </button>
+
+    <button data-back="3">
+        <img src="images/card-back-3.jpg" alt="ظهر 3">
+    </button>
+
+    <button
+        id="card-back-upload-button"
+        type="button"
+    >
+        ＋
+    </button>
+
 </div>
-        <h3>الطاولة</h3>
 
-        <p>هنا سنضع خيارات الطاولة.</p>
+<input
+    type="file"
+    id="card-back-file"
+    accept="image/png, image/jpeg, image/webp"
+    hidden
+>
 
+<div id="card-back-upload">
+    
+</div>
+ 
+
+<h3>خلفية الطاولة</h3>
+
+<div id="table-background-options">
+<button
+    class="table-background-color"
+    data-background="default">
+</button>
+    <button data-background="1">
+        <img src="images/table-bg-1.jpg" alt="خلفية 1">
+    </button>
+
+    <button data-background="2">
+        <img src="images/table-bg-2.jpg" alt="خلفية 2">
+    </button>
+
+    <button data-background="3">
+        <img src="images/table-bg-3.jpg" alt="خلفية 3">
+    </button>
+    <button
+    id="table-background-upload-button"
+    type="button"
+>
+    🖼️ إضافة صورة
+</button>
+
+</div>
+<input
+    type="file"
+    id="table-background-file"
+    accept="image/png, image/jpeg, image/webp"
+    hidden
+>
     </div>
 
 </div>
@@ -151,6 +215,30 @@
     </div>
 
 </main>
+<!-- مودال حفظ واستعادة -->
+<div id="save-choice-modal" class="save-modal">
+
+    <div class="save-modal-content">
+
+        <div class="save-modal-header">
+            <h2>حفظ واستعادة</h2>
+
+            <button id="close-save-choice-modal">
+                ×
+            </button>
+        </div>
+
+        <button id="save-table-choice" class="saved-table">
+            💾 حفظ طاولة
+        </button>
+
+        <button id="restore-table-choice" class="saved-table">
+            📂 استعادة طاولة
+        </button>
+
+    </div>
+
+</div>
 
     <script src="../dist/deck.js"></script>
     <script src="app.js"></script>

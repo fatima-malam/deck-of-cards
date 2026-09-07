@@ -11,10 +11,15 @@ body {
 
 body {
     background: #35654d;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     font-family: sans-serif;
     overflow: hidden;
 }
-
+#table {
+    background: transparent;
+}
 #topbar {
     height: 60px;
 
@@ -181,11 +186,11 @@ body {
 .save-modal-content {
     width: 400px;
     max-width: 90%;
-
+    max-height: 90vh;
+    overflow-y: auto;
     background: white;
     border-radius: 12px;
     padding: 20px;
-
     color: #222;
 }
 
@@ -328,7 +333,7 @@ body {
 /* ظهر البطاقات */
 
 .deck.custom-card-back .card .back {
-    background-image: url("images/خسوف.jpg");
+    background-image: var(--custom-card-back);
     background-size: cover;
     background-position: center;
     border-radius: 4px;
@@ -350,4 +355,73 @@ body {
 
 #card-back-options button:hover {
     background: #e8eeee;
+}
+
+#table-background-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#table-background-options button {
+    width: 100px;
+    height: 70px;
+    padding: 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: white;
+}
+
+#table-background-options button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#table-background-options .table-background-color {
+    background: #35654d;
+}
+
+#table-background-options button.selected {
+    border: 3px solid #222;
+}
+
+#card-back-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#card-back-options button {
+    width: 70px;
+    height: 100px;
+    padding: 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: white;
+}
+
+#card-back-options button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#card-back-options .card-back-default {
+    background: #35654d;
+}
+
+#card-back-options #card-back-upload-button {
+    font-size: 28px;
+    background: #f5f5f5;
+}
+
+#card-back-options button.selected {
+    border: 3px solid #222;
 }
