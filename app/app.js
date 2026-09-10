@@ -36,8 +36,28 @@ var closeInfoModalButton =
 closeInfoModalButton.addEventListener('click', function () {
     infoModal.classList.remove('open')
 })
+var resetTableButton =
+    document.getElementById('reset-table')
 
 
+
+resetTableButton.addEventListener('click', function () {
+    deck.cards.splice(
+        0,
+        deck.cards.length,
+        ...defaultDeckState.map(function (state) {
+            return deck.cards.find(function (card) {
+                return card.i === state.i
+            })
+        })
+    )
+
+    deck.cards.forEach(function (card, index) {
+        card.pos = index
+        card.setSide('back')
+        card.shuffle(function () {})
+    })
+})
 // الحفظ والاستعادة
 
 var saveLoadTableButton =
@@ -105,6 +125,7 @@ var isDeckMoving = false
 
 var deck = Deck(true)
 
+
 function isJoker(card) {
     return card.suit === 4
 }
@@ -118,14 +139,23 @@ var removedJoker = allJokers[2]
 var index = deck.cards.indexOf(removedJoker)
 removedJoker.unmount()
 deck.cards.splice(index, 1)
-
+var defaultDeckCards = deck.cards.slice()
 var jokers = deck.cards.filter(function (card) {
     return card.suit === 4
 })
 
 var joker1 = jokers[0]
 var joker2 = jokers[1]
-
+var defaultDeckState = deck.cards.map(function (card) {
+    return {
+        i: card.i,
+        rank: card.rank,
+        suit: card.suit,
+        x: card.x,
+        y: card.y,
+        side: 'back'
+    }
+})
 // =========================
 // تفعيل البطاقات
 // =========================
@@ -440,6 +470,13 @@ window.addEventListener('mouseup', function () {
 
 moveDeckButton.addEventListener('click', function () {
 
+    if (moveDeckButton.classList.contains('mechanic-locked')) {
+
+        showWarning('لا تستطيع تحريك الرزمة بعد اختيار نمط. اعد ضبط الطاولة')
+        return
+
+    }
+
     isDeckMoving = !isDeckMoving
 
     if (isDeckMoving) {
@@ -505,6 +542,20 @@ closeGameInfoButton.addEventListener('click', function () {
     gameInfoModal.classList.remove('open')
 
 })
+
+function showWarning(message) {
+
+    var warning = document.createElement('div')
+
+    warning.className = 'warning-popup'
+    warning.textContent = message
+
+    document.body.appendChild(warning)
+
+    setTimeout(function () {
+        warning.remove()
+    }, 3000)
+}
 
 // =========================
 // المناطق
@@ -625,10 +676,10 @@ function addZoneActions(zone) {
         actions.className = 'zone-actions'
 
         var editButton = document.createElement('button')
-        editButton.textContent = '✏️ تعديل'
+        editButton.textContent = '🖉'
 
         var deleteButton = document.createElement('button')
-        deleteButton.textContent = '🗑️ حذف'
+        deleteButton.textContent = '🗑'
 
         actions.appendChild(editButton)
         actions.appendChild(deleteButton)
@@ -756,9 +807,58 @@ moveDeckButton.textContent = '↔ تحريك الرزمة'
 moveDeckButton.classList.remove('active')
 
 deckHandle.style.display = 'none'
-
-moveDeckButton.disabled = true
+moveDeckButton.classList.add('mechanic-locked')
 }
+
+function resetTable() {
+
+    // إعادة البطاقات الأصلية
+    deck.cards.splice(
+        0,
+        deck.cards.length,
+        ...defaultDeckCards
+    )
+
+    // إعادة تركيب البطاقات في الطاولة
+    deck.cards.forEach(function (card, index) {
+
+        card.pos = index
+
+        card.setSide('back')
+
+        card.enableDragging()
+        card.enableFlipping()
+
+        if (!card.$el.parentNode) {
+            deckElement.appendChild(card.$el)
+        }
+
+        card.shuffle(function () {})
+    })
+
+    // حذف جميع المناطق
+    var zones =
+        table.querySelectorAll('.zone')
+
+    zones.forEach(function (zone) {
+        zone.remove()
+    })
+
+    // إعادة الرزمة لمكانها الافتراضي
+    deckElement.style.left = '50%'
+    deckElement.style.top = '50%'
+
+    // إنهاء وضع تحريك الرزمة
+    isDeckMoving = false
+    moveDeckButton.textContent = '↔ تحريك الرزمة'
+    moveDeckButton.classList.remove('active')
+    moveDeckButton.classList.remove('mechanic-locked')
+    deckHandle.style.display = 'none'
+    moveDeckButton.disabled = false
+}
+resetTableButton.addEventListener('click', function () {
+    resetTable()
+})
 // =========================
 // الحفظ والاستعادة
 // =========================

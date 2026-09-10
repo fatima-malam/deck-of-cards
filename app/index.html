@@ -14,18 +14,25 @@
 
     <header id="topbar">
         <h1>طاولة البطاقات</h1>
-<button id="info-button" title="عن الطاولة وطريقة الاستخدام">ⓘ</button>
 
-
-      <button id="shuffle">خلط</button>
-<button id="flip">قلب المجموعة</button>
+        <div class="topbar-group">
+<button id="shuffle">خلط</button>
+<button id="flip">قلب </button>
 <button id="sort">ترتيب</button>
+</div>
 
-<button id="move-deck">↔ تحريك الرزمة</button>
+<div class="topbar-group">
+<button id="move-deck">⟷ تحريك الرزمة</button>
+<button id="reset-table">↻ إعادة ضبط الطاولة</button>
 <button id="add-zone">＋ إضافة منطقة</button>
-<button id="setup-game">🎲 تجهيز اللعبة</button>
-<button id="save-load-table">💾 حفظ واستعادة</button>
-<button id="customize-table">🎨 تخصيص</button>
+<button id="setup-game">انماط </button>
+</div>
+
+<div class="topbar-group-end">
+<button id="save-load-table">🖫</button>
+<button id="customize-table">⚙</button>
+<button id="info-button" title="عن الطاولة وطريقة الاستخدام">ⓘ</button>
+</div>
 
     </header>
 
@@ -42,14 +49,15 @@
         </div>
 
         <h3>حجم البطاقات</h3>
-
+<br>
         <div id="card-size-options">
-            <button data-size="small">صغير</button>
-            <button data-size="medium">متوسط</button>
-            <button data-size="large">كبير</button>
+            <button class="card-size-option" data-size="small">صغير</button>
+            <button class="card-size-option" data-size="medium">متوسط</button>
+            <button class="card-size-option" data-size="large">كبير</button>
         </div>
+        <br>
 <h3>ظهر البطاقات</h3>
-
+<br>
 <div id="card-back-options">
 
     <button
@@ -90,10 +98,10 @@
 <div id="card-back-upload">
     
 </div>
- 
+ <br>
 
 <h3>خلفية الطاولة</h3>
-
+<br>
 <div id="table-background-options">
 <button
     class="table-background-color"
@@ -114,7 +122,7 @@
     id="table-background-upload-button"
     type="button"
 >
-    🖼️ إضافة صورة
+   ＋
 </button>
 
 </div>
@@ -170,7 +178,7 @@
         <div class="save-modal-content">
 
             <div class="save-modal-header">
-                <h2>اختيار اللعبة</h2>
+                <h2>اختيار النمط</h2>
                 <button id="close-game-modal">×</button>
             </div>
 
@@ -179,7 +187,7 @@
                 <div class="game-option">
 
                     <button class="saved-table" id="game-one">
-                       مكانيك 01
+                     خلط مخصوص
                     </button>
 
                     <button class="game-info" id="game-one-info">
@@ -201,16 +209,16 @@
         <div class="save-modal-content">
 
             <div class="save-modal-header">
-                <h2>ميكانيك 01</h2>
+                <h2>خلط مخصوص</h2>
                 <button id="close-game-info">×</button>
             </div>
 
-            <h3>اسم الميكانيك</h3>
+            
 
              <p>
-            إزالة الجوكر من المجموعة، ثم توزيع عشر بطاقات جانبًا.
-            تقسيم بقية البطاقات إلى مجموعتين، ووضع جوكر في كل مجموعة،
-            ثم إعادة تجميع الرزمة بحيث تكون البطاقات العشر بين المجموعتين.
+            يزال الجوكر من المجموعة، ثم تخلط البطاقات وتجنب عشر بطاقات منها.<br><br>
+            وتقسم بقية البطاقات إلى مجموعتين، وتخلط البطاقات مع جوكر في كل مجموعة،<br><br>
+            ثم يعاد تجميع الرزمة بحيث تكون البطاقات العشر بين المجموعتين.
 </p>
     
         </div>
@@ -248,39 +256,28 @@
     <div class="save-modal-content">
 
         <div class="save-modal-header">
-            <h2>عن الطاولة وطريقة الاستخدام</h2>
-            <button id="close-info-modal">×</button>
-        </div>
+       <h2> طاولة البطاقات</h2>
+<button id="close-info-modal">×</button>
+</div>
 
-        <h3>عن التطبيق</h3>
-        <p>
-            طاولة البطاقات هي طاولة إلكترونية للعب بالألعاب التي تعتمد
-            على البطاقات، مع إمكانية إضافة الميكانيكيات الخاصة بكل لعبة.
-        </p>
+<h3>عن التطبيق</h3>
+<p>
+    طاولة البطاقات هي طاولة إلكترونية للعب بالألعاب التي تعتمد
+    على البطاقات، مع إمكانية إضافة أنماط خاصة تناسب بعض الألعاب.
+    <br><br>
+    بُني التطبيق على المشروع مفتوح المصدر
+    <a href="https://github.com/deck-of-cards/deck-of-cards">Deck of Cards</a>،
+    وطوّر من قبل <a href="">فاطمة مالم</a> لاضافة افكار جديدة على طاولة
+    <br> وهذا المشروع ايضًا <a href="">مفتوح المصدر</a>.
+</p>
+<br>
 
-        <h3>طريقة الاستخدام</h3>
-        <ul>
-            <li>اسحب البطاقات لتحريكها، ويمكنك قلبها بالنقر عليها.</li>
-            <li>استخدم زر «↔ تحريك الرزمة» لتحريك الرزمة كاملة.</li>
-            <li>انقر مرتين على المنطقة للدخول إلى وضع التعديل.</li>
-            <li>انقر مرتين مرة أخرى للخروج من وضع التعديل.</li>
-            <li>يمكنك حفظ الطاولة واستعادتها من زر «حفظ واستعادة».</li>
-            <li>الحفظ يتم داخل المتصفح، وليس على حساب أو خادم.</li>
-            <li>يمكنك تغيير حجم البطاقات وخلفية الطاولة وظهر البطاقات من «تخصيص».</li>
-        </ul>
+<h3>ملاحظات</h3>
+<ul>
+    <li>انقر مرتين على المنطقة للدخول إلى وضع التعديل والخروج منه.</li>
+    <li>الحفظ يتم داخل المتصفح، وليس على حساب أو خادم.</li>
+</ul>
 
-        <h3>ميكانيكيات الألعاب</h3>
-        <p>
-            بعض الألعاب لها ميكانيكيات خاصة تغيّر طريقة تعامل البطاقات.
-            عند اختيار ميكانيكية معينة، قد تصبح بعض البطاقات غير قابلة
-            للتحريك أو تتغير طريقة استخدامها، وهذا يكون جزءًا من قواعد اللعبة.
-        </p>
-
-        <h3>تنبيه</h3>
-        <p>
-            بما أن الحفظ يتم داخل المتصفح، فقد تفقد الحفظات إذا تم مسح
-            بيانات الموقع أو بيانات المتصفح.
-        </p>
 
     </div>
 </div>
