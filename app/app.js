@@ -2,14 +2,29 @@
 // عناصر الواجهة
 // =========================
 
-var table = document.getElementById('table')
+var table =
+    document.getElementById('table')
 
-var shuffleButton = document.getElementById('shuffle')
-var flipButton = document.getElementById('flip')
-var sortButton = document.getElementById('sort')
-var addZoneButton = document.getElementById('add-zone')
-var setupGameButton = document.getElementById('setup-game')
-var moveDeckButton = document.getElementById('move-deck')
+var shuffleButton =
+    document.getElementById('shuffle')
+
+var flipButton =
+    document.getElementById('flip')
+
+var sortButton =
+    document.getElementById('sort')
+
+var addZoneButton =
+    document.getElementById('add-zone')
+
+var setupGameButton =
+    document.getElementById('setup-game')
+
+var moveDeckButton =
+    document.getElementById('move-deck')
+
+var resetTableButton =
+    document.getElementById('reset-table')
 
 var customizeTableButton =
     document.getElementById('customize-table')
@@ -17,57 +32,22 @@ var customizeTableButton =
 var customizeModal =
     document.getElementById('customize-modal')
 
-var closeCustomizeModalButton =
-    document.getElementById('close-customize-modal')
-
-    var infoButton =
+var infoButton =
     document.getElementById('info-button')
 
 var infoModal =
     document.getElementById('info-modal')
 
-var closeInfoModalButton =
-    document.getElementById('close-info-modal')
 
-    infoButton.addEventListener('click', function () {
-    infoModal.classList.add('open')
-})
-
-closeInfoModalButton.addEventListener('click', function () {
-    infoModal.classList.remove('open')
-})
-var resetTableButton =
-    document.getElementById('reset-table')
-
-
-
-resetTableButton.addEventListener('click', function () {
-    deck.cards.splice(
-        0,
-        deck.cards.length,
-        ...defaultDeckState.map(function (state) {
-            return deck.cards.find(function (card) {
-                return card.i === state.i
-            })
-        })
-    )
-
-    deck.cards.forEach(function (card, index) {
-        card.pos = index
-        card.setSide('back')
-        card.shuffle(function () {})
-    })
-})
-// الحفظ والاستعادة
+// =========================
+// نوافذ الحفظ والاستعادة
+// =========================
 
 var saveLoadTableButton =
     document.getElementById('save-load-table')
 
 var saveChoiceModal =
     document.getElementById('save-choice-modal')
-
-var closeSaveChoiceModalButton =
-    document.getElementById('close-save-choice-modal')
 
 var saveTableChoice =
     document.getElementById('save-table-choice')
@@ -81,20 +61,16 @@ var saveModal =
 var savedTablesList =
     document.getElementById('saved-tables-list')
 
-var closeSaveModalButton =
-    document.getElementById('close-save-modal')
-
 var saveNewModal =
     document.getElementById('save-new-modal')
 
 var saveOptionsList =
     document.getElementById('save-options-list')
 
-var closeSaveNewModalButton =
-    document.getElementById('close-save-new-modal')
 
-
-// الألعاب
+// =========================
+// نوافذ الألعاب
+// =========================
 
 var gameModal =
     document.getElementById('game-modal')
@@ -102,22 +78,19 @@ var gameModal =
 var gameOneButton =
     document.getElementById('game-one')
 
-var closeGameModalButton =
-    document.getElementById('close-game-modal')
-
 var gameInfoModal =
     document.getElementById('game-info-modal')
 
 var gameOneInfoButton =
     document.getElementById('game-one-info')
 
-var closeGameInfoButton =
-    document.getElementById('close-game-info')
 
-
+// =========================
 // حالة التطبيق
+// =========================
 
 var isDeckMoving = false
+
 
 // =========================
 // إنشاء الرزمة
@@ -130,32 +103,48 @@ function isJoker(card) {
     return card.suit === 4
 }
 
-var allJokers = deck.cards.filter(function (card) {
-    return isJoker(card)
-})
+var allJokers =
+    deck.cards.filter(function (card) {
+        return isJoker(card)
+    })
 
-var removedJoker = allJokers[2]
+var removedJoker =
+    allJokers[2]
 
-var index = deck.cards.indexOf(removedJoker)
+var index =
+    deck.cards.indexOf(removedJoker)
+
 removedJoker.unmount()
-deck.cards.splice(index, 1)
-var defaultDeckCards = deck.cards.slice()
-var jokers = deck.cards.filter(function (card) {
-    return card.suit === 4
-})
 
-var joker1 = jokers[0]
-var joker2 = jokers[1]
-var defaultDeckState = deck.cards.map(function (card) {
-    return {
-        i: card.i,
-        rank: card.rank,
-        suit: card.suit,
-        x: card.x,
-        y: card.y,
-        side: 'back'
-    }
-})
+deck.cards.splice(index, 1)
+
+var defaultDeckCards =
+    deck.cards.slice()
+
+var jokers =
+    deck.cards.filter(function (card) {
+        return card.suit === 4
+    })
+
+var joker1 =
+    jokers[0]
+
+var joker2 =
+    jokers[1]
+
+var defaultDeckState =
+    deck.cards.map(function (card) {
+        return {
+            i: card.i,
+            rank: card.rank,
+            suit: card.suit,
+            x: card.x,
+            y: card.y,
+            side: 'back'
+        }
+    })
+
+
 // =========================
 // تفعيل البطاقات
 // =========================
@@ -172,7 +161,9 @@ deck.cards.forEach(function (card) {
 
 deck.mount(table)
 
-var deckElement = table.querySelector('.deck')
+var deckElement =
+    table.querySelector('.deck')
+
 
 // =========================
 // حجم البطاقات
@@ -185,24 +176,27 @@ cardSizeOptions
     .querySelectorAll('button')
     .forEach(function (button) {
 
-        button.addEventListener('click', function () {
+        button.addEventListener(
+            'click',
+            function () {
 
-            var size =
-                button.dataset.size
+                var size =
+                    button.dataset.size
 
-            deckElement.classList.remove(
-                'card-size-small',
-                'card-size-medium',
-                'card-size-large'
-            )
+                deckElement.classList.remove(
+                    'card-size-small',
+                    'card-size-medium',
+                    'card-size-large'
+                )
 
-            deckElement.classList.add(
-                'card-size-' + size
-            )
-
-        })
-
+                deckElement.classList.add(
+                    'card-size-' + size
+                )
+            }
+        )
     })
+
+
 // =========================
 // ظهر البطاقات
 // =========================
@@ -212,52 +206,54 @@ var cardBackOptions =
 
 cardBackOptions
     .querySelectorAll('button[data-back]')
-        .forEach(function (button) {
+    .forEach(function (button) {
 
-        button.addEventListener('click', function () {
+        button.addEventListener(
+            'click',
+            function () {
 
-            cardBackOptions
-                .querySelectorAll('button')
-                .forEach(function (item) {
-                    item.classList.remove('selected')
-                })
+                cardBackOptions
+                    .querySelectorAll('button')
+                    .forEach(function (item) {
+                        item.classList.remove('selected')
+                    })
 
-            button.classList.add('selected')
+                button.classList.add('selected')
 
-            var back =
-                button.dataset.back
+                var back =
+                    button.dataset.back
 
-            if (back === 'default') {
+                if (back === 'default') {
 
-                deckElement.classList.remove(
-                    'custom-card-back'
-                )
+                    deckElement.classList.remove(
+                        'custom-card-back'
+                    )
 
-                deckElement.style.removeProperty(
-                    '--custom-card-back'
-                )
+                    deckElement.style.removeProperty(
+                        '--custom-card-back'
+                    )
 
-            } else {
+                } else {
 
-                deckElement.style.setProperty(
-                    '--custom-card-back',
-                    'url("images/card-back-' +
-                    back +
-                    '.jpg")'
-                )
+                    deckElement.style.setProperty(
+                        '--custom-card-back',
+                        'url("images/card-back-' +
+                        back +
+                        '.jpg")'
+                    )
 
-                deckElement.classList.add(
-                    'custom-card-back'
-                )
-
+                    deckElement.classList.add(
+                        'custom-card-back'
+                    )
+                }
             }
-
-        })
-
+        )
     })
 
 var cardBackUploadButton =
-    document.getElementById('card-back-upload-button')
+    document.getElementById(
+        'card-back-upload-button'
+    )
 
 var cardBackFile =
     document.getElementById('card-back-file')
@@ -265,9 +261,7 @@ var cardBackFile =
 cardBackUploadButton.addEventListener(
     'click',
     function () {
-
         cardBackFile.click()
-
     }
 )
 
@@ -275,7 +269,8 @@ cardBackFile.addEventListener(
     'change',
     function () {
 
-        var file = cardBackFile.files[0]
+        var file =
+            cardBackFile.files[0]
 
         if (!file) {
             return
@@ -283,98 +278,122 @@ cardBackFile.addEventListener(
 
         if (file.size > 500 * 1024) {
 
-            alert('حجم الصورة يجب ألا يتجاوز 500 KB')
+            alert(
+                'حجم الصورة يجب ألا يتجاوز 500 KB'
+            )
 
             cardBackFile.value = ''
 
             return
         }
 
-        var reader = new FileReader()
+        var reader =
+            new FileReader()
 
-        reader.onload = function (event) {
+        reader.onload =
+            function (event) {
 
-            deckElement.style.setProperty(
-                '--custom-card-back',
-                'url("' + event.target.result + '")'
-            )
+                deckElement.style.setProperty(
+                    '--custom-card-back',
+                    'url("' +
+                    event.target.result +
+                    '")'
+                )
 
-            deckElement.classList.add(
-                'custom-card-back'
-            )
+                deckElement.classList.add(
+                    'custom-card-back'
+                )
 
-            cardBackOptions
-                .querySelectorAll('button')
-                .forEach(function (item) {
-                    item.classList.remove('selected')
-                })
+                cardBackOptions
+                    .querySelectorAll('button')
+                    .forEach(function (item) {
+                        item.classList.remove(
+                            'selected'
+                        )
+                    })
 
-            cardBackUploadButton.classList.add(
-                'selected'
-            )
-
-        }
+                cardBackUploadButton.classList.add(
+                    'selected'
+                )
+            }
 
         reader.readAsDataURL(file)
-
     }
 )
+
 
 // =========================
 // خلفية الطاولة
 // =========================
 
 var tableBackgroundOptions =
-    document.getElementById('table-background-options')
+    document.getElementById(
+        'table-background-options'
+    )
 
 tableBackgroundOptions
     .querySelectorAll('button')
     .forEach(function (button) {
 
-        button.addEventListener('click', function () {
-            tableBackgroundOptions
-        .querySelectorAll('button')
-        .forEach(function (item) {
-            item.classList.remove('selected')
-        })
-  button.classList.add('selected')
-            var background =
-                button.dataset.background
+        button.addEventListener(
+            'click',
+            function () {
 
-            if (background === 'default') {
+                tableBackgroundOptions
+                    .querySelectorAll('button')
+                    .forEach(function (item) {
+                        item.classList.remove(
+                            'selected'
+                        )
+                    })
 
-                document.body.style.backgroundImage = 'none'
-document.body.style.backgroundColor = '#35654d'
+                button.classList.add('selected')
 
-            } else {
+                var background =
+                    button.dataset.background
 
-               document.body.style.backgroundImage =
-    'url("images/table-bg-' +
-    background +
-    '.jpg")'
+                if (background === 'default') {
 
-document.body.style.backgroundSize = 'cover'
-document.body.style.backgroundPosition = 'center'
-document.body.style.backgroundRepeat = 'no-repeat'
+                    document.body.style.backgroundImage =
+                        'none'
 
+                    document.body.style.backgroundColor =
+                        '#35654d'
+
+                } else {
+
+                    document.body.style.backgroundImage =
+                        'url("images/table-bg-' +
+                        background +
+                        '.jpg")'
+
+                    document.body.style.backgroundSize =
+                        'cover'
+
+                    document.body.style.backgroundPosition =
+                        'center'
+
+                    document.body.style.backgroundRepeat =
+                        'no-repeat'
+                }
             }
-
-        })
-
+        )
     })
 
 var tableBackgroundUploadButton =
-    document.getElementById('table-background-upload-button')
+    document.getElementById(
+        'table-background-upload-button'
+    )
 
 var tableBackgroundFile =
-    document.getElementById('table-background-file')
+    document.getElementById(
+        'table-background-file'
+    )
 
 tableBackgroundUploadButton.addEventListener(
     'click',
     function () {
-
         tableBackgroundFile.click()
-
     }
 )
 
@@ -382,7 +401,8 @@ tableBackgroundFile.addEventListener(
     'change',
     function () {
 
-        var file = tableBackgroundFile.files[0]
+        var file =
+            tableBackgroundFile.files[0]
 
         if (!file) {
             return
@@ -390,222 +410,365 @@ tableBackgroundFile.addEventListener(
 
         if (file.size > 500 * 1024) {
 
-            alert('حجم الصورة يجب ألا يتجاوز 500 KB')
+            alert(
+                'حجم الصورة يجب ألا يتجاوز 500 KB'
+            )
 
             tableBackgroundFile.value = ''
 
             return
         }
 
-        var reader = new FileReader()
+        var reader =
+            new FileReader()
 
-        reader.onload = function (event) {
+        reader.onload =
+            function (event) {
 
-            document.body.style.backgroundImage =
-                'url("' + event.target.result + '")'
+                document.body.style.backgroundImage =
+                    'url("' +
+                    event.target.result +
+                    '")'
 
-            document.body.style.backgroundSize = 'cover'
-            document.body.style.backgroundPosition = 'center'
-            document.body.style.backgroundRepeat = 'no-repeat'
+                document.body.style.backgroundSize =
+                    'cover'
 
-        }
+                document.body.style.backgroundPosition =
+                    'center'
+
+                document.body.style.backgroundRepeat =
+                    'no-repeat'
+            }
 
         reader.readAsDataURL(file)
-
     }
 )
 
-    
+
+// =========================
+// أزرار إغلاق النوافذ
+// =========================
+
+var closeButtons =
+    document.querySelectorAll('.close-modal')
+
+closeButtons.forEach(function (button) {
+
+    button.addEventListener(
+        'click',
+        function () {
+
+            var modal =
+                button.closest('.save-modal')
+
+            if (modal) {
+                modal.classList.remove('open')
+            }
+        }
+    )
+})
+
+
 // =========================
 // تحريك الرزمة
 // =========================
-var deckHandle = document.createElement('div')
 
-deckHandle.className = 'deck-handle'
-deckHandle.textContent = '↔'
+var deckHandle =
+    document.createElement('div')
+
+deckHandle.className =
+    'deck-handle'
+
+deckHandle.textContent =
+    '↔'
 
 deckElement.appendChild(deckHandle)
+
 var isDraggingDeck = false
 var deckOffsetX = 0
 var deckOffsetY = 0
 
-deckHandle.addEventListener('mousedown', function (e) {
+deckHandle.addEventListener(
+    'mousedown',
+    function (e) {
 
-    if (!isDeckMoving) return
+        if (!isDeckMoving) {
+            return
+        }
 
-    isDraggingDeck = true
+        isDraggingDeck = true
 
-    var deckRect = deckElement.getBoundingClientRect()
+        var deckRect =
+            deckElement.getBoundingClientRect()
 
-    deckOffsetX = e.clientX - deckRect.left
-    deckOffsetY = e.clientY - deckRect.top
+        deckOffsetX =
+            e.clientX - deckRect.left
 
-    deckHandle.style.cursor = 'grabbing'
+        deckOffsetY =
+            e.clientY - deckRect.top
 
-    e.preventDefault()
-    e.stopPropagation()
-})
+        deckHandle.style.cursor =
+            'grabbing'
 
-window.addEventListener('mousemove', function (e) {
-
-    if (!isDraggingDeck) return
-
-    var tableRect = table.getBoundingClientRect()
-
-    deckElement.style.left =
-        (e.clientX - tableRect.left - deckOffsetX) + 'px'
-
-    deckElement.style.top =
-        (e.clientY - tableRect.top - deckOffsetY) + 'px'
-})
-
-window.addEventListener('mouseup', function () {
-
-    if (!isDraggingDeck) return
-
-    isDraggingDeck = false
-
-    deckHandle.style.cursor = 'grab'
-})
-
-moveDeckButton.addEventListener('click', function () {
-
-    if (moveDeckButton.classList.contains('mechanic-locked')) {
-
-        showWarning('لا تستطيع تحريك الرزمة بعد اختيار نمط. اعد ضبط الطاولة')
-        return
-
+        e.preventDefault()
+        e.stopPropagation()
     }
+)
 
-    isDeckMoving = !isDeckMoving
+window.addEventListener(
+    'mousemove',
+    function (e) {
 
-    if (isDeckMoving) {
+        if (!isDraggingDeck) {
+            return
+        }
 
-        moveDeckButton.textContent = '✓ إنهاء تحريك الرزمة'
-        moveDeckButton.classList.add('active')
+        var tableRect =
+            table.getBoundingClientRect()
 
-        deckHandle.style.display = 'block'
+        deckElement.style.left =
+            (
+                e.clientX -
+                tableRect.left -
+                deckOffsetX
+            ) + 'px'
 
-    } else {
-
-        moveDeckButton.textContent = '↔ تحريك الرزمة'
-        moveDeckButton.classList.remove('active')
-
-        deckHandle.style.display = 'none'
-
+        deckElement.style.top =
+            (
+                e.clientY -
+                tableRect.top -
+                deckOffsetY
+            ) + 'px'
     }
+)
 
-})
+window.addEventListener(
+    'mouseup',
+    function () {
+
+        if (!isDraggingDeck) {
+            return
+        }
+
+        isDraggingDeck = false
+
+        deckHandle.style.cursor =
+            'grab'
+    }
+)
+
+moveDeckButton.addEventListener(
+    'click',
+    function () {
+
+        if (
+            moveDeckButton.classList.contains(
+                'mechanic-locked'
+            )
+        ) {
+
+            showWarning(
+                'لا تستطيع تحريك الرزمة بعد اختيار نمط. اعد ضبط الطاولة'
+            )
+
+            return
+        }
+
+        isDeckMoving =
+            !isDeckMoving
+
+        if (isDeckMoving) {
+
+            moveDeckButton.textContent =
+                '✓ إنهاء تحريك الرزمة'
+
+            moveDeckButton.classList.add(
+                'active'
+            )
+
+            deckHandle.style.display =
+                'block'
+
+        } else {
+
+            moveDeckButton.textContent =
+                '↔ تحريك الرزمة'
+
+            moveDeckButton.classList.remove(
+                'active'
+            )
+
+            deckHandle.style.display =
+                'none'
+        }
+    }
+)
+
+
 // =========================
 // أزرار التحكم
 // =========================
-shuffleButton.addEventListener('click', function () {
-    deck.shuffle()
-})
 
-flipButton.addEventListener('click', function () {
-    deck.flip()
-})
+shuffleButton.addEventListener(
+    'click',
+    function () {
+        deck.shuffle()
+    }
+)
 
-sortButton.addEventListener('click', function () {
-    deck.sort()
-})
+flipButton.addEventListener(
+    'click',
+    function () {
+        deck.flip()
+    }
+)
 
-addZoneButton.addEventListener('click', function () {
-    createZone()
-})
+sortButton.addEventListener(
+    'click',
+    function () {
+        deck.sort()
+    }
+)
 
-setupGameButton.addEventListener('click', function () {
-    gameModal.classList.add('open')
-})
-gameOneButton.addEventListener('click', function () {
+addZoneButton.addEventListener(
+    'click',
+    function () {
+        createZone()
+    }
+)
 
-    setupGame()
+setupGameButton.addEventListener(
+    'click',
+    function () {
+        gameModal.classList.add('open')
+    }
+)
 
-    gameModal.classList.remove('open')
+gameOneButton.addEventListener(
+    'click',
+    function () {
 
-})
-closeGameModalButton.addEventListener('click', function () {
+        setupGame()
 
-    gameModal.classList.remove('open')
+        gameModal.classList.remove(
+            'open'
+        )
+    }
+)
 
-})
+gameOneInfoButton.addEventListener(
+    'click',
+    function () {
+        gameInfoModal.classList.add('open')
+    }
+)
 
-gameOneInfoButton.addEventListener('click', function () {
 
-    gameInfoModal.classList.add('open')
-
-})
-
-closeGameInfoButton.addEventListener('click', function () {
-
-    gameInfoModal.classList.remove('open')
-
-})
+// =========================
+// تحذير
+// =========================
 
 function showWarning(message) {
 
-    var warning = document.createElement('div')
+    var warning =
+        document.createElement('div')
 
-    warning.className = 'warning-popup'
-    warning.textContent = message
+    warning.className =
+        'warning-popup'
+
+    warning.textContent =
+        message
 
     document.body.appendChild(warning)
 
-    setTimeout(function () {
-        warning.remove()
-    }, 3000)
+    setTimeout(
+        function () {
+            warning.remove()
+        },
+        3000
+    )
 }
+
 
 // =========================
 // المناطق
 // =========================
+
 var maxZones = 6
 
+customizeTableButton.addEventListener(
+    'click',
+    function () {
+        customizeModal.classList.add('open')
+    }
+)
 
-customizeTableButton.addEventListener('click', function () {
-    customizeModal.classList.add('open')
-})
-
-closeCustomizeModalButton.addEventListener('click', function () {
-    customizeModal.classList.remove('open')
-})
+infoButton.addEventListener(
+    'click',
+    function () {
+        infoModal.classList.add('open')
+    }
+)
 
 function createZone() {
 
     var currentZones =
-        table.querySelectorAll('.zone').length
+        table.querySelectorAll(
+            '.zone'
+        ).length
 
     if (currentZones >= maxZones) {
-        alert('وصلت إلى الحد الأقصى للمناطق: 6')
+
+        alert(
+            'وصلت إلى الحد الأقصى للمناطق: 6'
+        )
+
         return
     }
 
-    var zone = document.createElement('div')
+    var zone =
+        document.createElement('div')
 
-    zone.className = 'zone'
+    zone.className =
+        'zone'
 
-    var column = currentZones % 3
-    var row = Math.floor(currentZones / 3)
+    var column =
+        currentZones % 3
 
-    zone.style.left = (80 + column * 170) + 'px'
-    zone.style.top = (100 + row * 230) + 'px'
+    var row =
+        Math.floor(currentZones / 3)
 
+    zone.style.left =
+        (80 + column * 170) + 'px'
 
-    var zoneName = document.createElement('div')
-    zoneName.className = 'zone-name'
-    zoneName.textContent = 'منطقة جديدة'
+    zone.style.top =
+        (100 + row * 230) + 'px'
 
-    var zoneLabel = document.createElement('div')
-    zoneLabel.className = 'zone-label'
-    zoneLabel.textContent = 'منطقة جديدة'
+    var zoneName =
+        document.createElement('div')
+
+    zoneName.className =
+        'zone-name'
+
+    zoneName.textContent =
+        'منطقة جديدة'
+
+    var zoneLabel =
+        document.createElement('div')
+
+    zoneLabel.className =
+        'zone-label'
+
+    zoneLabel.textContent =
+        'منطقة جديدة'
 
     zone.appendChild(zoneName)
     zone.appendChild(zoneLabel)
 
     table.appendChild(zone)
 
-    zone.isEditing = false
+    zone.isEditing =
+        false
 
     makeZoneDraggable(zone)
     addZoneActions(zone)
@@ -613,73 +776,113 @@ function createZone() {
 
 
 function makeZoneDraggable(zone) {
+
     var isDragging = false
     var offsetX = 0
     var offsetY = 0
 
-    zone.addEventListener('mousedown', function (e) {
+    zone.addEventListener(
+        'mousedown',
+        function (e) {
 
-        // لا تتحرك المنطقة إلا في وضع التعديل
-        if (!zone.isEditing) return
+            if (!zone.isEditing) {
+                return
+            }
 
-        isDragging = true
+            isDragging = true
 
-        var rect = zone.getBoundingClientRect()
+            var rect =
+                zone.getBoundingClientRect()
 
-        offsetX = e.clientX - rect.left
-        offsetY = e.clientY - rect.top
-    })
+            offsetX =
+                e.clientX - rect.left
 
-    window.addEventListener('mousemove', function (e) {
+            offsetY =
+                e.clientY - rect.top
+        }
+    )
 
-        if (!isDragging) return
-        if (!zone.isEditing) return
+    window.addEventListener(
+        'mousemove',
+        function (e) {
 
-        var tableRect = table.getBoundingClientRect()
+            if (!isDragging) {
+                return
+            }
 
-        zone.style.left =
-            (e.clientX - tableRect.left - offsetX) + 'px'
+            if (!zone.isEditing) {
+                return
+            }
 
-        zone.style.top =
-            (e.clientY - tableRect.top - offsetY) + 'px'
-    })
+            var tableRect =
+                table.getBoundingClientRect()
 
-    window.addEventListener('mouseup', function () {
-        isDragging = false
-    })
+            zone.style.left =
+                (
+                    e.clientX -
+                    tableRect.left -
+                    offsetX
+                ) + 'px'
+
+            zone.style.top =
+                (
+                    e.clientY -
+                    tableRect.top -
+                    offsetY
+                ) + 'px'
+        }
+    )
+
+    window.addEventListener(
+        'mouseup',
+        function () {
+            isDragging = false
+        }
+    )
 }
 
 
 function addZoneActions(zone) {
 
-    zone.addEventListener('dblclick', function (e) {
+    zone.addEventListener(
+        'dblclick',
+        function (e) {
 
-        e.stopPropagation()
+            e.stopPropagation()
 
-        // إذا كانت في وضع التعديل، ننهي التعديل
-        if (zone.isEditing) {
-            exitZoneEditMode(zone)
-            return
+            if (zone.isEditing) {
+                exitZoneEditMode(zone)
+                return
+            }
+
+            enterZoneEditMode(zone)
         }
-
-        // الدخول إلى وضع التعديل
-        enterZoneEditMode(zone)
-    })
+    )
 
 
     function enterZoneEditMode(zone) {
 
         zone.isEditing = true
+
         zone.classList.add('selected')
 
-        var actions = document.createElement('div')
-        actions.className = 'zone-actions'
+        var actions =
+            document.createElement('div')
 
-        var editButton = document.createElement('button')
-        editButton.textContent = '🖉'
+        actions.className =
+            'zone-actions'
 
-        var deleteButton = document.createElement('button')
-        deleteButton.textContent = '🗑'
+        var editButton =
+            document.createElement('button')
+
+        editButton.textContent =
+            '🖉'
+
+        var deleteButton =
+            document.createElement('button')
+
+        deleteButton.textContent =
+            '🗑'
 
         actions.appendChild(editButton)
         actions.appendChild(deleteButton)
@@ -687,37 +890,55 @@ function addZoneActions(zone) {
         zone.appendChild(actions)
 
 
-        editButton.addEventListener('click', function (e) {
+        editButton.addEventListener(
+            'click',
+            function (e) {
 
-            e.stopPropagation()
+                e.stopPropagation()
 
-            var zoneName =
-                zone.querySelector('.zone-name')
+                var zoneName =
+                    zone.querySelector(
+                        '.zone-name'
+                    )
 
-            var zoneLabel =
-                zone.querySelector('.zone-label')
+                var zoneLabel =
+                    zone.querySelector(
+                        '.zone-label'
+                    )
 
-            var newName = prompt(
-                'اكتب اسم المنطقة:',
-                zoneName.textContent
-            )
+                var newName =
+                    prompt(
+                        'اكتب اسم المنطقة:',
+                        zoneName.textContent
+                    )
 
-            if (newName && newName.trim() !== '') {
+                if (
+                    newName &&
+                    newName.trim() !== ''
+                ) {
 
-                newName = newName.trim()
+                    newName =
+                        newName.trim()
 
-                zoneName.textContent = newName
-                zoneLabel.textContent = newName
+                    zoneName.textContent =
+                        newName
+
+                    zoneLabel.textContent =
+                        newName
+                }
             }
-        })
+        )
 
 
-        deleteButton.addEventListener('click', function (e) {
+        deleteButton.addEventListener(
+            'click',
+            function (e) {
 
-            e.stopPropagation()
+                e.stopPropagation()
 
-            zone.remove()
-        })
+                zone.remove()
+            }
+        )
     }
 
 
@@ -725,90 +946,154 @@ function addZoneActions(zone) {
 
         zone.isEditing = false
 
-        zone.classList.remove('selected')
+        zone.classList.remove(
+            'selected'
+        )
 
         var actions =
-            zone.querySelector('.zone-actions')
+            zone.querySelector(
+                '.zone-actions'
+            )
 
         if (actions) {
             actions.remove()
         }
     }
 }
+
+
 // =========================
 // تجهيز اللعبة
 // =========================
+
 function setupGame() {
 
-    
-if (!deck.cards.includes(joker1)) {
-    return
-}
-  
+    if (!deck.cards.includes(joker1)) {
+        return
+    }
+
     // إزالة الجوكرين من الرزمة مؤقتًا
     joker1.unmount()
     joker2.unmount()
 
-    deck.cards.splice(deck.cards.indexOf(joker1), 1)
-    deck.cards.splice(deck.cards.indexOf(joker2), 1)
+    deck.cards.splice(
+        deck.cards.indexOf(joker1),
+        1
+    )
 
-   
+    deck.cards.splice(
+        deck.cards.indexOf(joker2),
+        1
+    )
 
-// خلط الـ52 بطاقة
-deck.shuffle()
+    // خلط الـ52 بطاقة
+    deck.shuffle()
 
-// حجز 10 بطاقات
-var reservedCards = deck.cards.slice(0, 10)
+    // حجز 10 بطاقات
+    var reservedCards =
+        deck.cards.slice(0, 10)
 
-// البطاقات المتبقية
-var remainingCards = deck.cards.slice(10)
+    // البطاقات المتبقية
+    var remainingCards =
+        deck.cards.slice(10)
 
-// تقسيم البطاقات المتبقية إلى مجموعتين
-var middle = Math.floor(remainingCards.length / 2)
+    // تقسيم البطاقات المتبقية إلى مجموعتين
+    var middle =
+        Math.floor(
+            remainingCards.length / 2
+        )
 
-var pile1 = remainingCards.slice(0, middle)
-var pile2 = remainingCards.slice(middle)
+    var pile1 =
+        remainingCards.slice(
+            0,
+            middle
+        )
 
-// خلط كل مجموعة
-pile1.sort(function () {
-    return Math.random() - 0.5
-})
+    var pile2 =
+        remainingCards.slice(
+            middle
+        )
 
-pile2.sort(function () {
-    return Math.random() - 0.5
-})
+    // خلط كل مجموعة
+    pile1.sort(function () {
+        return Math.random() - 0.5
+    })
 
-// اختيار مكان عشوائي للجوكر
-var joker1Position =
-    Math.floor(Math.random() * (pile1.length + 1))
+    pile2.sort(function () {
+        return Math.random() - 0.5
+    })
 
-var joker2Position =
-    Math.floor(Math.random() * (pile2.length + 1))
+    // اختيار مكان عشوائي للجوكر
+    var joker1Position =
+        Math.floor(
+            Math.random() *
+            (pile1.length + 1)
+        )
 
-// إدخال الجوكرين
-pile1.splice(joker1Position, 0, joker1)
-pile2.splice(joker2Position, 0, joker2)
+    var joker2Position =
+        Math.floor(
+            Math.random() *
+            (pile2.length + 1)
+        )
 
-// إعادة تجميع الرزمة
-deck.cards = pile1.concat(reservedCards, pile2)
-arrangeDeck()
+    // إدخال الجوكرين
+    pile1.splice(
+        joker1Position,
+        0,
+        joker1
+    )
 
+    pile2.splice(
+        joker2Position,
+        0,
+        joker2
+    )
+
+    // إعادة تجميع الرزمة
+    deck.cards =
+        pile1.concat(
+            reservedCards,
+            pile2
+        )
+
+    arrangeDeck()
 }
 
+
 function arrangeDeck() {
-    deck.cards.forEach(function (card, index) {
-        card.pos = index
-        card.shuffle(function () {})
-    })
+
+    deck.cards.forEach(
+        function (card, index) {
+
+            card.pos = index
+
+            card.shuffle(
+                function () {}
+            )
+        }
+    )
 
     isDeckMoving = false
 
-moveDeckButton.textContent = '↔ تحريك الرزمة'
-moveDeckButton.classList.remove('active')
+    moveDeckButton.textContent =
+        '↔ تحريك الرزمة'
 
-deckHandle.style.display = 'none'
-moveDeckButton.classList.add('mechanic-locked')
+    moveDeckButton.classList.remove(
+        'active'
+    )
+
+    deckHandle.style.display =
+        'none'
+
+    moveDeckButton.classList.add(
+        'mechanic-locked'
+    )
 }
+
+
+// =========================
+// إعادة ضبط الطاولة
+// =========================
 
 function resetTable() {
 
@@ -820,171 +1105,262 @@ function resetTable() {
     )
 
     // إعادة تركيب البطاقات في الطاولة
-    deck.cards.forEach(function (card, index) {
+    deck.cards.forEach(
+        function (card, index) {
 
-        card.pos = index
+            card.pos = index
 
-        card.setSide('back')
+            card.setSide('back')
 
-        card.enableDragging()
-        card.enableFlipping()
+            card.enableDragging()
+            card.enableFlipping()
 
-        if (!card.$el.parentNode) {
-            deckElement.appendChild(card.$el)
+            if (!card.$el.parentNode) {
+                deckElement.appendChild(
+                    card.$el
+                )
+            }
+
+            card.shuffle(
+                function () {}
+            )
         }
-
-        card.shuffle(function () {})
-    })
+    )
 
     // حذف جميع المناطق
     var zones =
-        table.querySelectorAll('.zone')
+        table.querySelectorAll(
+            '.zone'
+        )
 
-    zones.forEach(function (zone) {
-        zone.remove()
-    })
+    zones.forEach(
+        function (zone) {
+            zone.remove()
+        }
+    )
 
     // إعادة الرزمة لمكانها الافتراضي
-    deckElement.style.left = '50%'
-    deckElement.style.top = '50%'
+    deckElement.style.left =
+        '50%'
+
+    deckElement.style.top =
+        '50%'
 
     // إنهاء وضع تحريك الرزمة
     isDeckMoving = false
-    moveDeckButton.textContent = '↔ تحريك الرزمة'
-    moveDeckButton.classList.remove('active')
-    moveDeckButton.classList.remove('mechanic-locked')
-    deckHandle.style.display = 'none'
-    moveDeckButton.disabled = false
+
+    moveDeckButton.textContent =
+        '↔ تحريك الرزمة'
+
+    moveDeckButton.classList.remove(
+        'active'
+    )
+
+    moveDeckButton.classList.remove(
+        'mechanic-locked'
+    )
+
+    deckHandle.style.display =
+        'none'
+
+    moveDeckButton.disabled =
+        false
 }
-resetTableButton.addEventListener('click', function () {
-    resetTable()
-})
+
+resetTableButton.addEventListener(
+    'click',
+    function () {
+        resetTable()
+    }
+)
+
+
 // =========================
 // الحفظ والاستعادة
 // =========================
-saveLoadTableButton.addEventListener('click', function () {
 
-    saveModal.classList.remove('open')
-    saveNewModal.classList.remove('open')
+saveLoadTableButton.addEventListener(
+    'click',
+    function () {
 
-    saveChoiceModal.classList.add('open')
+        saveModal.classList.remove(
+            'open'
+        )
 
-})
+        saveNewModal.classList.remove(
+            'open'
+        )
 
-closeSaveChoiceModalButton.addEventListener('click', function () {
+        saveChoiceModal.classList.add(
+            'open'
+        )
+    }
+)
 
-    saveChoiceModal.classList.remove('open')
+saveTableChoice.addEventListener(
+    'click',
+    function () {
 
-})
+        saveChoiceModal.classList.remove(
+            'open'
+        )
 
-saveTableChoice.addEventListener('click', function () {
+        saveModal.classList.remove(
+            'open'
+        )
 
-    saveChoiceModal.classList.remove('open')
-    saveModal.classList.remove('open')
+        showSaveOptions()
+    }
+)
 
-    showSaveOptions()
+restoreTableChoice.addEventListener(
+    'click',
+    function () {
 
-})
+        saveChoiceModal.classList.remove(
+            'open'
+        )
 
-restoreTableChoice.addEventListener('click', function () {
+        saveNewModal.classList.remove(
+            'open'
+        )
 
-    saveChoiceModal.classList.remove('open')
-    saveNewModal.classList.remove('open')
+        showSavedTables()
+    }
+)
 
-    showSavedTables()
-
-})
 
 function saveTableState(name) {
+
     var state = {
 
         name: name,
 
-      deck: {
-    left: deckElement.style.left,
-    top: deckElement.style.top,
-    cardSize: deckElement.classList.contains('card-size-large')
-        ? 'large'
-        : deckElement.classList.contains('card-size-medium')
-            ? 'medium'
-            : 'small',
-    cardBack: deckElement.classList.contains('custom-card-back')
-        ? deckElement.style.getPropertyValue('--custom-card-back')
-        : 'default'
-},
-background: {
-    image: document.body.style.backgroundImage,
-    color: document.body.style.backgroundColor
-},
+        deck: {
+            left: deckElement.style.left,
+            top: deckElement.style.top,
 
-        cards: deck.cards.map(function (card) {
+            cardSize:
+                deckElement.classList.contains(
+                    'card-size-large'
+                )
+                    ? 'large'
+                    : deckElement.classList.contains(
+                        'card-size-medium'
+                    )
+                        ? 'medium'
+                        : 'small',
 
-            return {
-                i: card.i,
-                rank: card.rank,
-                suit: card.suit,
-                x: card.x,
-                y: card.y,
-                z: card.z,
-                side: card.side
-            }
+            cardBack:
+                deckElement.classList.contains(
+                    'custom-card-back'
+                )
+                    ? deckElement.style
+                        .getPropertyValue(
+                            '--custom-card-back'
+                        )
+                    : 'default'
+        },
 
-        }),
+        background: {
+            image:
+                document.body.style
+                    .backgroundImage,
+
+            color:
+                document.body.style
+                    .backgroundColor
+        },
+
+        cards:
+            deck.cards.map(
+                function (card) {
+
+                    return {
+                        i: card.i,
+                        rank: card.rank,
+                        suit: card.suit,
+                        x: card.x,
+                        y: card.y,
+                        z: card.z,
+                        side: card.side
+                    }
+                }
+            ),
 
         zones: []
     }
 
-    var zones = table.querySelectorAll('.zone')
+    var zones =
+        table.querySelectorAll(
+            '.zone'
+        )
 
-    zones.forEach(function (zone) {
+    zones.forEach(
+        function (zone) {
 
-        state.zones.push({
-            name: zone.querySelector('.zone-name').textContent,
-            left: zone.style.left,
-            top: zone.style.top
-        })
+            state.zones.push({
+                name:
+                    zone.querySelector(
+                        '.zone-name'
+                    ).textContent,
 
-    })
+                left:
+                    zone.style.left,
 
+                top:
+                    zone.style.top
+            })
+        }
+    )
 
-    // الحصول على الحفظات الموجودة
     var saves =
         JSON.parse(
-            localStorage.getItem('card-table-saves')
+            localStorage.getItem(
+                'card-table-saves'
+            )
         ) || []
-    
 
-var existingIndex = saves.findIndex(function (save) {
-    return save.name === name
-})
+    var existingIndex =
+        saves.findIndex(
+            function (save) {
+                return save.name === name
+            }
+        )
 
-if (existingIndex !== -1) {
+    if (existingIndex !== -1) {
 
-    saves[existingIndex] = state
+        saves[existingIndex] =
+            state
 
-} else {
+    } else {
 
-    if (saves.length >= 6) {
+        if (saves.length >= 6) {
 
-        alert('وصلت إلى الحد الأقصى وهو 6 حفظات')
+            alert(
+                'وصلت إلى الحد الأقصى وهو 6 حفظات'
+            )
 
-        return
+            return
+        }
+
+        saves.push(state)
     }
 
-    saves.push(state)
+    localStorage.setItem(
+        'card-table-saves',
+        JSON.stringify(saves)
+    )
 }
 
-localStorage.setItem(
-    'card-table-saves',
-    JSON.stringify(saves)
-)
 
-}
 function showSavedTables() {
 
     var saves =
         JSON.parse(
-            localStorage.getItem('card-table-saves')
+            localStorage.getItem(
+                'card-table-saves'
+            )
         ) || []
 
     savedTablesList.innerHTML = ''
@@ -996,133 +1372,194 @@ function showSavedTables() {
 
     } else {
 
-        saves.forEach(function (save, index) {
+        saves.forEach(
+            function (save, index) {
 
-            var row =
-                document.createElement('div')
+                var row =
+                    document.createElement(
+                        'div'
+                    )
 
-            row.className = 'saved-table-row'
-
-
-            // زر استعادة الحفظة
-            var button =
-                document.createElement('button')
-
-            button.className = 'saved-table'
-            button.textContent = save.name
-
-            button.addEventListener('click', function () {
-
-                loadTableState(save.name)
-
-                saveModal.classList.remove('open')
-
-            })
+                row.className =
+                    'saved-table-row'
 
 
-            // زر حذف الحفظة
-            var deleteButton =
-                document.createElement('button')
+                // زر استعادة الحفظة
+                var button =
+                    document.createElement(
+                        'button'
+                    )
 
-            deleteButton.className = 'delete-save'
-            deleteButton.textContent = 'حذف'
+                button.className =
+                    'saved-table'
 
-            deleteButton.addEventListener('click', function (event) {
+                button.textContent =
+                    save.name
 
-    event.stopPropagation()
+                button.addEventListener(
+                    'click',
+                    function () {
 
-    var confirmed =
-        confirm('هل أنت متأكد من حذف الحفظة "' + save.name + '"؟')
+                        loadTableState(
+                            save.name
+                        )
 
-    if (!confirmed) {
-        return
-    }
-
-    deleteSavedTable(index)
-
-})
+                        saveModal.classList.remove(
+                            'open'
+                        )
+                    }
+                )
 
 
-            row.appendChild(button)
-            row.appendChild(deleteButton)
+                // زر حذف الحفظة
+                var deleteButton =
+                    document.createElement(
+                        'button'
+                    )
 
-            savedTablesList.appendChild(row)
+                deleteButton.className =
+                    'delete-save'
 
-        })
+                deleteButton.textContent =
+                    'حذف'
+
+                deleteButton.addEventListener(
+                    'click',
+                    function (event) {
+
+                        event.stopPropagation()
+
+                        var confirmed =
+                            confirm(
+                                'هل أنت متأكد من حذف الحفظة "' +
+                                save.name +
+                                '"؟'
+                            )
+
+                        if (!confirmed) {
+                            return
+                        }
+
+                        deleteSavedTable(
+                            index
+                        )
+                    }
+                )
+
+                row.appendChild(button)
+                row.appendChild(
+                    deleteButton
+                )
+
+                savedTablesList.appendChild(
+                    row
+                )
+            }
+        )
     }
 
     saveModal.classList.add('open')
 }
+
+
 function showSaveOptions() {
 
     var saves =
         JSON.parse(
-            localStorage.getItem('card-table-saves')
+            localStorage.getItem(
+                'card-table-saves'
+            )
         ) || []
 
     saveOptionsList.innerHTML = ''
 
 
     // الحفظات الموجودة
-    saves.forEach(function (save) {
+    saves.forEach(
+        function (save) {
 
-        var button =
-            document.createElement('button')
+            var button =
+                document.createElement(
+                    'button'
+                )
 
-        button.className = 'saved-table'
-        button.textContent =
-            'تحديث: ' + save.name
+            button.className =
+                'saved-table'
 
-        button.addEventListener('click', function () {
+            button.textContent =
+                'تحديث: ' + save.name
 
-            saveTableState(save.name)
+            button.addEventListener(
+                'click',
+                function () {
 
-            saveNewModal.classList.remove('open')
+                    saveTableState(
+                        save.name
+                    )
 
-        })
+                    saveNewModal.classList.remove(
+                        'open'
+                    )
+                }
+            )
 
-        saveOptionsList.appendChild(button)
-
-    })
+            saveOptionsList.appendChild(
+                button
+            )
+        }
+    )
 
 
     // حفظ جديد
     var newButton =
-        document.createElement('button')
+        document.createElement(
+            'button'
+        )
 
-    newButton.className = 'saved-table'
-    newButton.textContent = '+ حفظ جديد'
+    newButton.className =
+        'saved-table'
 
-    newButton.addEventListener('click', function () {
+    newButton.textContent =
+        '+ حفظ جديد'
 
-        var name = prompt('اكتب اسم الحفظ الجديد')
+    newButton.addEventListener(
+        'click',
+        function () {
 
-        if (!name) {
-            return
+            var name =
+                prompt(
+                    'اكتب اسم الحفظ الجديد'
+                )
+
+            if (!name) {
+                return
+            }
+
+            saveTableState(name)
+
+            saveNewModal.classList.remove(
+                'open'
+            )
         }
+    )
 
-        saveTableState(name)
+    saveOptionsList.appendChild(
+        newButton
+    )
 
-        saveNewModal.classList.remove('open')
-
-    })
-
-    saveOptionsList.appendChild(newButton)
-
-
-    saveNewModal.classList.add('open')
+    saveNewModal.classList.add(
+        'open'
+    )
 }
-closeSaveNewModalButton.addEventListener('click', function () {
 
-    saveNewModal.classList.remove('open')
-
-})
 
 function deleteSavedTable(index) {
 
     var saves =
         JSON.parse(
-            localStorage.getItem('card-table-saves')
+            localStorage.getItem(
+                'card-table-saves'
+            )
         ) || []
 
     saves.splice(index, 1)
@@ -1134,32 +1571,30 @@ function deleteSavedTable(index) {
 
     showSavedTables()
 }
-closeSaveModalButton.addEventListener('click', function () {
-
-    saveModal.classList.remove('open')
-
-})
-
 
 
 function loadTableState(name) {
 
     var saves =
         JSON.parse(
-            localStorage.getItem('card-table-saves')
+            localStorage.getItem(
+                'card-table-saves'
+            )
         ) || []
 
     var state =
-        saves.find(function (save) {
-            return save.name === name
-        })
+        saves.find(
+            function (save) {
+                return save.name === name
+            }
+        )
 
     if (!state) {
         return
     }
 
 
-    // استعادة مكان الرزمة
+    // استعادة مكان الرزمة وتخصيصاتها
     if (state.deck) {
 
         deckElement.style.left =
@@ -1167,126 +1602,161 @@ function loadTableState(name) {
 
         deckElement.style.top =
             state.deck.top
-    
-
-
-    deckElement.classList.remove(
-        'card-size-small',
-        'card-size-medium',
-        'card-size-large'
-    )
-
-    deckElement.classList.add(
-        'card-size-' + state.deck.cardSize
-    )
-
-    if (state.deck.cardBack === 'default') {
 
         deckElement.classList.remove(
-            'custom-card-back'
-        )
-
-        deckElement.style.removeProperty(
-            '--custom-card-back'
-        )
-
-    } else {
-
-        deckElement.style.setProperty(
-            '--custom-card-back',
-            state.deck.cardBack
+            'card-size-small',
+            'card-size-medium',
+            'card-size-large'
         )
 
         deckElement.classList.add(
-            'custom-card-back'
+            'card-size-' +
+            state.deck.cardSize
         )
+
+        if (
+            state.deck.cardBack ===
+            'default'
+        ) {
+
+            deckElement.classList.remove(
+                'custom-card-back'
+            )
+
+            deckElement.style.removeProperty(
+                '--custom-card-back'
+            )
+
+        } else {
+
+            deckElement.style.setProperty(
+                '--custom-card-back',
+                state.deck.cardBack
+            )
+
+            deckElement.classList.add(
+                'custom-card-back'
+            )
+        }
     }
-}
-if (state.background) {
 
-    document.body.style.backgroundImage =
-        state.background.image
 
-    document.body.style.backgroundColor =
-        state.background.color
-}
+    // استعادة خلفية الطاولة
+    if (state.background) {
+
+        document.body.style.backgroundImage =
+            state.background.image
+
+        document.body.style.backgroundColor =
+            state.background.color
+    }
+
+
     // استعادة البطاقات
     if (state.cards) {
 
-        var savedCards = state.cards
+        var savedCards =
+            state.cards
 
         var restoredCards = []
 
-        savedCards.forEach(function (savedCard) {
+        savedCards.forEach(
+            function (savedCard) {
 
-            var card = deck.cards.find(function (card) {
-                return card.i === savedCard.i
-            })
+                var card =
+                    deck.cards.find(
+                        function (card) {
+                            return card.i ===
+                                savedCard.i
+                        }
+                    )
 
-            if (!card) return
+                if (!card) {
+                    return
+                }
 
-            // استعادة الوجه
-           card.setSide(savedCard.side)
+                // استعادة الوجه
+                card.setSide(
+                    savedCard.side
+                )
 
-card.x = savedCard.x
-card.y = savedCard.y
+                card.x =
+                    savedCard.x
 
-card.$el.style.transform =
-    'translate(' +
-    card.x + 'px, ' +
-    card.y + 'px)'
-            
+                card.y =
+                    savedCard.y
 
-            // استعادة الطبقة
-            card.$el.style.zIndex = savedCard.z
+                card.$el.style.transform =
+                    'translate(' +
+                    card.x +
+                    'px, ' +
+                    card.y +
+                    'px)'
 
-            restoredCards.push(card)
-        })
+                // استعادة الطبقة
+                card.$el.style.zIndex =
+                    savedCard.z
+
+                restoredCards.push(
+                    card
+                )
+            }
+        )
 
         // استعادة ترتيب المصفوفة
         deck.cards.splice(
-    0,
-    deck.cards.length,
-    ...restoredCards
-)
+            0,
+            deck.cards.length,
+            ...restoredCards
+        )
     }
 
 
     // حذف المناطق الحالية
     var currentZones =
-        table.querySelectorAll('.zone')
+        table.querySelectorAll(
+            '.zone'
+        )
 
-    currentZones.forEach(function (zone) {
-        zone.remove()
-    })
+    currentZones.forEach(
+        function (zone) {
+            zone.remove()
+        }
+    )
 
 
     // استعادة المناطق المحفوظة
     if (state.zones) {
 
-        state.zones.forEach(function (savedZone) {
+        state.zones.forEach(
+            function (savedZone) {
 
-            createZone()
+                createZone()
 
-            var zones =
-                table.querySelectorAll('.zone')
+                var zones =
+                    table.querySelectorAll(
+                        '.zone'
+                    )
 
-            var zone =
-                zones[zones.length - 1]
+                var zone =
+                    zones[zones.length - 1]
 
-            zone.style.left =
-                savedZone.left
+                zone.style.left =
+                    savedZone.left
 
-            zone.style.top =
-                savedZone.top
+                zone.style.top =
+                    savedZone.top
 
-            zone.querySelector('.zone-name').textContent =
-                savedZone.name
+                zone.querySelector(
+                    '.zone-name'
+                ).textContent =
+                    savedZone.name
 
-            zone.querySelector('.zone-label').textContent =
-                savedZone.name
-        })
+                zone.querySelector(
+                    '.zone-label'
+                ).textContent =
+                    savedZone.name
+            }
+        )
     }
-
-
 }

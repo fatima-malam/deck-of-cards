@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,275 +13,326 @@
 
 <body>
 
+    <!-- =========================
+         الشريط العلوي
+         ========================= -->
+
     <header id="topbar">
+
         <h1>طاولة البطاقات</h1>
 
         <div class="topbar-group">
-<button id="shuffle">خلط</button>
-<button id="flip">قلب </button>
-<button id="sort">ترتيب</button>
-</div>
+            <button id="shuffle">خلط</button>
+            <button id="flip">قلب</button>
+            <button id="sort">ترتيب</button>
+        </div>
 
-<div class="topbar-group">
-<button id="move-deck">⟷ تحريك الرزمة</button>
-<button id="reset-table">↻ إعادة ضبط الطاولة</button>
-<button id="add-zone">＋ إضافة منطقة</button>
-<button id="setup-game">انماط </button>
-</div>
+        <div class="topbar-group">
+            <button id="move-deck">⟷ تحريك الرزمة</button>
+            <button id="reset-table">↻ إعادة ضبط الطاولة</button>
+            <button id="add-zone">＋ إضافة منطقة</button>
+            <button id="setup-game">أنماط</button>
+        </div>
 
-<div class="topbar-group-end">
-<button id="save-load-table">🖫</button>
-<button id="customize-table">⚙</button>
-<button id="info-button" title="عن الطاولة وطريقة الاستخدام">ⓘ</button>
-</div>
+        <div class="topbar-group-end">
+            <button id="save-load-table">🖫</button>
+            <button id="customize-table">⚙</button>
+            <button
+                id="info-button"
+                title="عن الطاولة وطريقة الاستخدام"
+            >
+                ⓘ
+            </button>
+        </div>
 
     </header>
 
- <main id="table">
 
-<div id="customize-modal" class="save-modal">
+    <!-- =========================
+         الطاولة
+         ========================= -->
 
-    <div class="save-modal-content">
+    <main id="table">
+        <!-- =========================
+             نافذة تخصيص الطاولة
+             ========================= -->
 
-        <div class="save-modal-header">
-            <h2>تخصيص الطاولة</h2>
+        <div id="customize-modal" class="save-modal">
 
-            <button id="close-customize-modal">×</button>
-        </div>
+            <div class="save-modal-content">
 
-        <h3>حجم البطاقات</h3>
-<br>
-        <div id="card-size-options">
-            <button class="card-size-option" data-size="small">صغير</button>
-            <button class="card-size-option" data-size="medium">متوسط</button>
-            <button class="card-size-option" data-size="large">كبير</button>
-        </div>
-        <br>
-<h3>ظهر البطاقات</h3>
-<br>
-<div id="card-back-options">
+                <div class="save-modal-header">
+                    <h2>تخصيص الطاولة</h2>
+                    <button class="close-modal">×</button>
+                </div>
 
-    <button
-        class="card-back-default"
-        data-back="default"
-        title="الافتراضي"
-    >
-    </button>
+                <h3>حجم البطاقات</h3>
+                <br>
+                <div id="card-size-options">
+                    <button
+                        class="card-size-option"
+                        data-size="small"
+                    > صغير
+                    </button>
+                    <button
+                        class="card-size-option"
+                        data-size="medium"
+                    > متوسط
+                    </button>
+                    <button
+                        class="card-size-option"
+                        data-size="large"
+                    > كبير
+                    </button>
+                </div>
+                <br>
+                <h3>ظهر البطاقات</h3>
+                <br>
 
-    <button data-back="1">
-        <img src="images/card-back-1.jpg" alt="ظهر 1">
-    </button>
+                <div id="card-back-options">
 
-    <button data-back="2">
-        <img src="images/card-back-2.jpg" alt="ظهر 2">
-    </button>
+                    <button
+                        class="card-back-default"
+                        data-back="default"
+                        title="الافتراضي"
+                    ></button>
 
-    <button data-back="3">
-        <img src="images/card-back-3.jpg" alt="ظهر 3">
-    </button>
-
-    <button
-        id="card-back-upload-button"
-        type="button"
-    >
-        ＋
-    </button>
-
-</div>
-
-<input
-    type="file"
-    id="card-back-file"
-    accept="image/png, image/jpeg, image/webp"
-    hidden
->
-
-<div id="card-back-upload">
-    
-</div>
- <br>
-
-<h3>خلفية الطاولة</h3>
-<br>
-<div id="table-background-options">
-<button
-    class="table-background-color"
-    data-background="default">
-</button>
-    <button data-background="1">
-        <img src="images/table-bg-1.jpg" alt="خلفية 1">
-    </button>
-
-    <button data-background="2">
-        <img src="images/table-bg-2.jpg" alt="خلفية 2">
-    </button>
-
-    <button data-background="3">
-        <img src="images/table-bg-3.jpg" alt="خلفية 3">
-    </button>
-    <button
-    id="table-background-upload-button"
-    type="button"
->
-   ＋
-</button>
-
-</div>
-<input
-    type="file"
-    id="table-background-file"
-    accept="image/png, image/jpeg, image/webp"
-    hidden
->
-    </div>
-
-</div>
-
-    <!-- نافذة استعادة الطاولة -->
-    <div id="save-modal" class="save-modal">
-
-        <div class="save-modal-content">
-
-            <div class="save-modal-header">
-                <h2>استعادة الطاولة</h2>
-                <button id="close-save-modal">×</button>
-            </div>
-
-            <div id="saved-tables-list">
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- نافذة حفظ الطاولة -->
-    <div id="save-new-modal" class="save-modal">
-
-        <div class="save-modal-content">
-
-            <div class="save-modal-header">
-                <h2>حفظ الطاولة</h2>
-                <button id="close-save-new-modal">×</button>
-            </div>
-
-            <div id="save-options-list">
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- نافذة اختيار اللعبة -->
-    <div id="game-modal" class="save-modal">
-
-        <div class="save-modal-content">
-
-            <div class="save-modal-header">
-                <h2>اختيار النمط</h2>
-                <button id="close-game-modal">×</button>
-            </div>
-
-            <div id="game-list">
-
-                <div class="game-option">
-
-                    <button class="saved-table" id="game-one">
-                     خلط مخصوص
+                    <button data-back="1">
+                        <img
+                            src="images/card-back-1.jpg"
+                            alt="ظهر 1"
+                        >
                     </button>
 
-                    <button class="game-info" id="game-one-info">
-                        ⓘ
+                    <button data-back="2">
+                        <img
+                            src="images/card-back-2.jpg"
+                            alt="ظهر 2"
+                        >
+                    </button>
+
+                    <button data-back="3">
+                        <img
+                            src="images/card-back-3.jpg"
+                            alt="ظهر 3"
+                        >
+                    </button>
+
+                    <button
+                        id="card-back-upload-button"
+                        type="button"
+                    >
+                        ＋
                     </button>
 
                 </div>
 
-            </div>
+                <input
+                    type="file"
+                    id="card-back-file"
+                    accept="image/png, image/jpeg, image/webp"
+                    hidden
+                >
+                <br>
 
+                <h3>خلفية الطاولة</h3>
+                <br>
+                <div id="table-background-options">
+                    <button
+                        class="table-background-color"
+                        data-background="default"
+                    ></button>
+                    <button data-background="1">
+                        <img
+                            src="images/table-bg-1.jpg"
+                            alt="خلفية 1"
+                        >
+                    </button>
+                    <button data-background="2">
+                        <img
+                            src="images/table-bg-2.jpg"
+                            alt="خلفية 2"
+                        >
+                    </button>
+                    <button data-background="3">
+                        <img
+                            src="images/table-bg-3.jpg"
+                            alt="خلفية 3"
+                        >
+                    </button>
+                    <button
+                        id="table-background-upload-button"
+                        type="button"
+                    >  ＋
+                    </button>
+                </div>
+                <input
+                    type="file"
+                    id="table-background-file"
+                    accept="image/png, image/jpeg, image/webp"
+                    hidden
+                >
+            </div>
         </div>
 
-    </div>
+
+        <!-- =========================
+             نافذة استعادة الطاولة
+             ========================= -->
+
+        <div id="save-modal" class="save-modal">
+            <div class="save-modal-content">
+                <div class="save-modal-header">
+                    <h2>استعادة الطاولة</h2>
+                    <button class="close-modal">×</button>
+                </div>
+                <div id="saved-tables-list"></div>
+            </div>
+        </div>
 
 
-    <!-- نافذة وصف ميكانيك اللعبة -->
-    <div id="game-info-modal" class="save-modal">
+        <!-- =========================
+             نافذة حفظ الطاولة
+             ========================= -->
 
+        <div id="save-new-modal" class="save-modal">
+            <div class="save-modal-content">
+                <div class="save-modal-header">
+                    <h2>حفظ الطاولة</h2>
+                    <button class="close-modal">×</button>
+                </div>
+                <div id="save-options-list"></div>
+            </div>
+        </div>
+
+
+        <!-- =========================
+             نافذة اختيار النمط
+             ======================== -->
+
+        <div id="game-modal" class="save-modal">
+            <div class="save-modal-content">
+                <div class="save-modal-header">
+                    <h2>اختيار النمط</h2>
+                    <button class="close-modal">×</button>
+                </div>
+                <div id="game-list">
+                    <div class="game-option">
+                        <button
+                            class="saved-table"
+                            id="game-one"
+                        >
+                            خلط مخصوص
+                        </button>
+                        <button
+                            class="game-info"
+                            id="game-one-info"
+                        >
+                            ⓘ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================
+             نافذة وصف النمط
+             ========================= -->
+        <div id="game-info-modal" class="save-modal">
+            <div class="save-modal-content">
+                <div class="save-modal-header">
+                    <h2>خلط مخصوص</h2>
+                    <button class="close-modal">×</button>
+                </div>
+                <p>
+                    يزال الجوكر من المجموعة، ثم تخلط البطاقات
+                    وتجنب عشر بطاقات منها.
+                    <br><br>
+                    وتقسم بقية البطاقات إلى مجموعتين، ويخلط
+                    جوكر في كل مجموعة.
+                    <br><br>
+                    ثم يعاد تجميع الرزمة بحيث تكون البطاقات
+                    العشر بين المجموعتين.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- =========================
+         نافذة حفظ واستعادة
+         ========================= -->
+    <div id="save-choice-modal" class="save-modal">
         <div class="save-modal-content">
-
             <div class="save-modal-header">
-                <h2>خلط مخصوص</h2>
-                <button id="close-game-info">×</button>
+                <h2>حفظ واستعادة</h2>
+                <button class="close-modal">×</button>
             </div>
-
-            
-
-             <p>
-            يزال الجوكر من المجموعة، ثم تخلط البطاقات وتجنب عشر بطاقات منها.<br><br>
-            وتقسم بقية البطاقات إلى مجموعتين، وتخلط البطاقات مع جوكر في كل مجموعة،<br><br>
-            ثم يعاد تجميع الرزمة بحيث تكون البطاقات العشر بين المجموعتين.
-</p>
-    
-        </div>
-
-    </div>
-
-</main>
-<!-- مودال حفظ واستعادة -->
-<div id="save-choice-modal" class="save-modal">
-
-    <div class="save-modal-content">
-
-        <div class="save-modal-header">
-            <h2>حفظ واستعادة</h2>
-
-            <button id="close-save-choice-modal">
-                ×
+            <button
+                id="save-table-choice"
+                class="saved-table"
+            >
+                💾 حفظ طاولة
+            </button>
+            <button
+                id="restore-table-choice"
+                class="saved-table"
+            >
+                📂 استعادة طاولة
             </button>
         </div>
-
-        <button id="save-table-choice" class="saved-table">
-            💾 حفظ طاولة
-        </button>
-
-        <button id="restore-table-choice" class="saved-table">
-            📂 استعادة طاولة
-        </button>
-
     </div>
 
-</div>
+    <!-- =========================
+         نافذة المعلومات
+         ========================= -->
 
-<!-- نافذة المعلومات -->
-<div id="info-modal" class="save-modal">
-    <div class="save-modal-content">
+    <div id="info-modal" class="save-modal">
+        <div class="save-modal-content">
+            <div class="save-modal-header">
+                <h2>طاولة البطاقات</h2>
+                <button class="close-modal">×</button>
+            </div>
+            <h3>عن التطبيق</h3>
+            <p>
+                طاولة البطاقات هي طاولة إلكترونية للعب بالألعاب
+                التي تعتمد على البطاقات، مع إمكانية إضافة أنماط
+                خاصة تناسب بعض الألعاب.
+                <br><br>
+                بُني التطبيق على المشروع مفتوح المصدر
+                <a href="https://github.com/deck-of-cards/deck-of-cards">
+                    Deck of Cards
+                </a>،
+                وطوّر من قبل
+                <a href="">
+                    فاطمة مالم
+                </a>
+                لإضافة أفكار جديدة على الطاولة.
+                <br>
+                وهذا المشروع أيضًا
+                <a href="">
+                    مفتوح المصدر
+                </a>.
+            </p>
 
-        <div class="save-modal-header">
-       <h2> طاولة البطاقات</h2>
-<button id="close-info-modal">×</button>
-</div>
+            <br>
 
-<h3>عن التطبيق</h3>
-<p>
-    طاولة البطاقات هي طاولة إلكترونية للعب بالألعاب التي تعتمد
-    على البطاقات، مع إمكانية إضافة أنماط خاصة تناسب بعض الألعاب.
-    <br><br>
-    بُني التطبيق على المشروع مفتوح المصدر
-    <a href="https://github.com/deck-of-cards/deck-of-cards">Deck of Cards</a>،
-    وطوّر من قبل <a href="">فاطمة مالم</a> لاضافة افكار جديدة على طاولة
-    <br> وهذا المشروع ايضًا <a href="">مفتوح المصدر</a>.
-</p>
-<br>
-
-<h3>ملاحظات</h3>
-<ul>
-    <li>انقر مرتين على المنطقة للدخول إلى وضع التعديل والخروج منه.</li>
-    <li>الحفظ يتم داخل المتصفح، وليس على حساب أو خادم.</li>
-</ul>
-
-
+            <h3>ملاحظات</h3>
+            <ul>
+                <li>
+                    انقر مرتين على المنطقة للدخول إلى وضع التعديل
+                    والخروج منه.
+                </li>
+                <li>
+                    الحفظ يتم داخل المتصفح، وليس على حساب أو خادم.
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+
+
+    <!-- =========================
+         ملفات JavaScript
+         ========================= -->
 
     <script src="../dist/deck.js"></script>
     <script src="app.js"></script>
