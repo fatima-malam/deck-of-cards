@@ -19,7 +19,7 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   # Single deploy job since we're just deploying
@@ -29,15 +29,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: تحميل المشروع
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
+
+      - name: تجهيز ملفات الموقع
+        run: |
+          mkdir site
+          cp -r app/. site/
+          cp -r dist site/dist
+
+      - name: رفع ملفات الموقع
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-           path: ./app
+          path: ./site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
